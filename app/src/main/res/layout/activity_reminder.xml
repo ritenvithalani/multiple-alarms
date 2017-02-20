@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.pravallika.multiplealarms.ReminderActivity">
+    tools:context="com.example.pravallika.multiplealarms.activities.ReminderActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
@@ -27,6 +27,7 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
+            app:tabIndicatorColor="@color/colorIcons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
