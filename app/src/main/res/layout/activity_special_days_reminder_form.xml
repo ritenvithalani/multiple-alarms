@@ -39,10 +39,43 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_spl_rem_set_date"
+        android:id="@+id/ll_spl_rem_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/iv_spl_rem_title_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ic_special_day"
+            android:backgroundTint="@color/colorSecondaryText"
+            android:padding="@dimen/activity_vertical_margin" />
+
+        <Spinner
+            android:id="@+id/sp_spl_rem_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/special_days_array"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textAppearance="?android:textAppearanceMedium" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#cccccc" />
+
+    <LinearLayout
+        android:id="@+id/ll_spl_rem_set_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_spl_rem_calendar_icon"
