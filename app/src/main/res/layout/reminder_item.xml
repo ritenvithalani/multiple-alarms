@@ -11,11 +11,20 @@
     android:descendantFocusability="blocksDescendants"
     tools:context="com.example.pravallika.multiplealarms.activities.MainActivity">
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/toggle_switch" />
+
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@id/toggle_switch"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/colorPrimaryText" />
 
@@ -34,13 +43,17 @@
         android:paddingRight="48dp"
         android:textAppearance="?android:textAppearanceMedium"
         android:layout_below="@id/tv_time"
+        android:layout_toRightOf="@id/toggle_switch"
         android:textColor="@color/colorSecondaryText" />
 
-    <Switch
+    <ImageView
+        android:id="@+id/iv_spl_rem_delete_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:background="@drawable/ic_delete"
         android:layout_centerVertical="true"
-        android:id="@+id/toggle_switch" />
+        android:backgroundTint="@color/grey_a"
+        android:padding="@dimen/activity_vertical_margin" />
 
 </RelativeLayout>

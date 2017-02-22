@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_label"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondaryText"
             android:padding="@dimen/activity_vertical_margin" />
 
         <EditText
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_location"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondaryText"
             android:padding="@dimen/activity_vertical_margin" />
 
         <EditText
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_calendar"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondaryText"
             android:padding="@dimen/activity_vertical_margin" />
 
         <TextView
@@ -109,7 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_clock"
-            android:backgroundTint="@color/colorAccent"
+            android:backgroundTint="@color/colorSecondaryText"
             android:padding="@dimen/activity_vertical_margin" />
 
         <TextView

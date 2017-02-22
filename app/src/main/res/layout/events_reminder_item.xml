@@ -11,11 +11,20 @@
     android:descendantFocusability="blocksDescendants"
     tools:context="com.example.pravallika.multiplealarms.activities.MainActivity">
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:id="@+id/ts_events_reminder" />
+
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_toRightOf="@id/ts_events_reminder"
         android:textAppearance="?android:textAppearanceLarge"
         android:textColor="@color/colorPrimaryText" />
 
@@ -32,6 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="48dp"
+        android:layout_toRightOf="@id/ts_events_reminder"
         android:textAppearance="?android:textAppearanceMedium"
         android:layout_below="@id/tv_time"
         android:textColor="@color/colorSecondaryText" />
@@ -42,13 +52,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
         android:layout_below="@id/tv_label"
+        android:layout_toRightOf="@id/ts_events_reminder"
         android:textColor="@color/colorSecondaryText" />
 
-    <Switch
+    <ImageView
+        android:id="@+id/iv_events_delete_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:background="@drawable/ic_delete"
         android:layout_centerVertical="true"
-        android:id="@+id/toggle_switch" />
+        android:backgroundTint="@color/grey_a"
+        android:padding="@dimen/activity_vertical_margin" />
 
 </RelativeLayout>
