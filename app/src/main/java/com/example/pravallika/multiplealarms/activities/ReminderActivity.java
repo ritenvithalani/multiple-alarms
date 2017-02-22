@@ -1,8 +1,8 @@
 package com.example.pravallika.multiplealarms.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -27,6 +27,7 @@ public class ReminderActivity extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     private SectionsPagerAdapter mSectionsPagerAdapter;
+    private int currentTab = 0;
 
     /**
      * The {@link ViewPager} that will host the section contents.
@@ -54,15 +55,35 @@ public class ReminderActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                currentTab = tab.getPosition();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (currentTab == 0) {
+                    // Invoke Special days reminder form
+                    Intent intent = new Intent(ReminderActivity.this, SpecialDaysReminderFormActivity.class);
+                    startActivity(intent);
+                } else if (currentTab == 1) {
+                    // Invoke events reminder form
+                    Intent intent = new Intent(ReminderActivity.this, EventsReminderFormActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
-
     }
 
     /**

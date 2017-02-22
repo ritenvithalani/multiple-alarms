@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.pravallika.multiplealarms.R;
-import com.example.pravallika.multiplealarms.adapters.ReminderAdapter;
+import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.Reminder;
 
 import java.util.ArrayList;
@@ -30,8 +30,7 @@ public class EventsReminderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_reminder, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_events_reminder, container, false);
 
         // Create a list of words
         List<Reminder> reminders = new ArrayList<Reminder>();
@@ -55,12 +54,12 @@ public class EventsReminderFragment extends Fragment {
         reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
         reminders.add(new Reminder("Parents Marriage day", "Sep 10", "8:00 AM", "at Seattle"));
 
-        ReminderAdapter reminderAdapter =
-                new ReminderAdapter(getActivity(), reminders);
+        EventsReminderAdapter eventsReminderAdapter =
+                new EventsReminderAdapter(getActivity(), reminders);
 
-        ListView listView = (ListView) rootView.findViewById(R.id.reminder_list);
+        ListView listView = (ListView) rootView.findViewById(R.id.events_reminder_list);
 
-        listView.setAdapter(reminderAdapter);
+        listView.setAdapter(eventsReminderAdapter);
 
         return rootView;
     }

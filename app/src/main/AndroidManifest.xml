@@ -18,11 +18,14 @@
         <activity
             android:name=".activities.ReminderActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.pravallika.multiplealarms.activities.MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" /></activity>
+                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+        </activity>
+        <activity android:name=".activities.SpecialDaysReminderFormActivity"></activity>
+        <activity android:name=".activities.EventsReminderFormActivity"></activity>
     </application>
 
 </manifest>

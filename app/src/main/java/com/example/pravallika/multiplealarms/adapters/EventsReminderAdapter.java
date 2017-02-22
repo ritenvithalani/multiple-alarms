@@ -16,9 +16,9 @@ import java.util.List;
  * Created by RitenVithlani on 2/20/17.
  */
 
-public class ReminderAdapter extends ArrayAdapter<Reminder> {
+public class EventsReminderAdapter extends ArrayAdapter<Reminder> {
 
-    public ReminderAdapter(Context context, List<Reminder> reminders) {
+    public EventsReminderAdapter(Context context, List<Reminder> reminders) {
         super(context, 0, reminders);
     }
 
@@ -26,7 +26,7 @@ public class ReminderAdapter extends ArrayAdapter<Reminder> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if(null == convertView) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.reminder_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.events_reminder_item, parent, false);
         }
 
         Reminder reminder = getItem(position);
@@ -34,6 +34,7 @@ public class ReminderAdapter extends ArrayAdapter<Reminder> {
         TextView date = (TextView) listItemView.findViewById(R.id.tv_date);
         TextView time = (TextView) listItemView.findViewById(R.id.tv_time);
         TextView label = (TextView) listItemView.findViewById(R.id.tv_label);
+        TextView location = (TextView) listItemView.findViewById(R.id.tv_location);
 
         if(null != reminder.getDate() && null!=date && !"".equals(reminder.getDate())) {
             date.setText(reminder.getDate());
@@ -56,6 +57,12 @@ public class ReminderAdapter extends ArrayAdapter<Reminder> {
             label.setVisibility(View.GONE);
         }
 
+        if(null != reminder.getLocation() && null!=location && !"".equals(reminder.getLocation())) {
+            location.setText(reminder.getLocation());
+        }
+        else {
+            location.setVisibility(View.GONE);
+        }
         return listItemView;
     }
 }
