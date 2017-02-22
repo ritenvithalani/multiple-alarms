@@ -1,6 +1,7 @@
 package com.example.pravallika.multiplealarms.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.pravallika.multiplealarms.R;
+import com.example.pravallika.multiplealarms.activities.SpecialDaysReminderFormActivity;
 import com.example.pravallika.multiplealarms.adapters.ReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.Reminder;
 
@@ -48,10 +50,9 @@ public class SpecialDaysReminderFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*Fragment editSpecialDaysReminderFragment = new SpecialDaysReminderFormFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.reminder_list, editSpecialDaysReminderFragment).
-                        addToBackStack("editSpecialDaysReminderFragment").commit();*/
+                Intent intent = new Intent(getActivity(), SpecialDaysReminderFormActivity.class);
+                startActivity(intent);
+
             }
         });
 

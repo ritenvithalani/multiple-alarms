@@ -1,14 +1,17 @@
 package com.example.pravallika.multiplealarms.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.pravallika.multiplealarms.R;
+import com.example.pravallika.multiplealarms.activities.EventsReminderFormActivity;
 import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.Reminder;
 
@@ -60,6 +63,15 @@ public class EventsReminderFragment extends Fragment {
         ListView listView = (ListView) rootView.findViewById(R.id.events_reminder_list);
 
         listView.setAdapter(eventsReminderAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), EventsReminderFormActivity.class);
+                startActivity(intent);
+
+            }
+        });
 
         return rootView;
     }
