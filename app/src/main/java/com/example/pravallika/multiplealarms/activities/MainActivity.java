@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         btnAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent alarmIntent = new Intent(MainActivity.this, MainActivity.class);
+                Intent alarmIntent = new Intent(MainActivity.this, AlarmActivity.class);
                 startActivity(alarmIntent);
             }
         });

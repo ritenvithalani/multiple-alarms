@@ -24,8 +24,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
         </activity>
-        <activity android:name=".activities.SpecialDaysReminderFormActivity"></activity>
-        <activity android:name=".activities.EventsReminderFormActivity"></activity>
+        <activity android:name=".activities.SpecialDaysReminderFormActivity" />
+        <activity android:name=".activities.EventsReminderFormActivity" />
+        <activity android:name=".activities.AlarmActivity"></activity>
     </application>
 
 </manifest>
