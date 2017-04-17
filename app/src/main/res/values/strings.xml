@@ -21,6 +21,7 @@
     <string-array name="special_days_array">
         <item>Birthday</item>
         <item>Marriage Anniversary</item>
+        <item>Other</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
