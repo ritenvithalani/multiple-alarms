@@ -4,16 +4,20 @@ package com.example.pravallika.multiplealarms.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.activities.SpecialDaysReminderFormActivity;
-import com.example.pravallika.multiplealarms.adapters.ReminderAdapter;
-import com.example.pravallika.multiplealarms.beans.Reminder;
+import com.example.pravallika.multiplealarms.adapters.SpecialDaysReminderAdapter;
+import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
+import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
+import com.example.pravallika.multiplealarms.helpers.MultipleAlarmMultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,39 +28,62 @@ import java.util.List;
  */
 public class SpecialDaysReminderFragment extends Fragment {
 
+    private ListView listView;
+    private List<SpecialDaysReminder> specialDaysReminder;
+    private SpecialDaysReminderAdapter specialDaysReminderAdapter;
 
     public SpecialDaysReminderFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_reminder, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_spl_days_reminder, container, false);
 
-        // Create a list of words
-        List<Reminder> reminders = new ArrayList<Reminder>();
-        // Fetch the values from the database
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM"));
-        reminders.add(new Reminder("Parents Marriage day", "Sep 10", "8:00 AM"));
+        specialDaysReminderAdapter = new SpecialDaysReminderAdapter(getActivity());
+        TextView emptyMsg = (TextView) rootView.findViewById(R.id.tv_empty_spl_reminder_msg);
+        listView = (ListView) rootView.findViewById(R.id.reminder_list);
+        listView.setAdapter(specialDaysReminderAdapter);
+        listView.setEmptyView(emptyMsg);
 
-        ReminderAdapter reminderAdapter =
-                new ReminderAdapter(getActivity(), reminders);
-
-        ListView listView = (ListView) rootView.findViewById(R.id.reminder_list);
-        listView.setAdapter(reminderAdapter);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), SpecialDaysReminderFormActivity.class);
+                intent.putExtra("SpecialDaysReminderEntry", specialDaysReminderAdapter.getItem(position));
                 startActivity(intent);
-
             }
         });
 
         return rootView;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        specialDaysReminderAdapter.clear();
+
+        // Create a list of specialDaysReminder
+        specialDaysReminder = new ArrayList<SpecialDaysReminder>();
+        SpecialDaysReminderDataSource specialDaysReminderDataSource = new SpecialDaysReminderDataSource(getActivity());
+        try {
+            specialDaysReminderDataSource.openReadableDatabase();
+            specialDaysReminder = specialDaysReminderDataSource.retrieveSpecialDaysReminders();
+            specialDaysReminderDataSource.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("SplDaysReminderFrag", "Error while fetching SpecialDaysReminderContract records");
+        }
+
+        specialDaysReminderAdapter.addAll(specialDaysReminder);
+        specialDaysReminderAdapter.notifyDataSetChanged();
+
+        MultipleAlarmMultiChoiceModeListener multiModeListener = new MultipleAlarmMultiChoiceModeListener(getContext(), specialDaysReminder, specialDaysReminderAdapter);
+        listView.setMultiChoiceModeListener(multiModeListener);
+    }
 }

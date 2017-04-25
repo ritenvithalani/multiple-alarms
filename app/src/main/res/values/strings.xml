@@ -26,5 +26,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="delete_items">Delete Items</string>
+    <string name="msg_empty_reminder">No reminders added to display</string>
+    <string name="eventsReminder">Reminders</string>
+    <string name="label_add_spl_reminder">Add Special Days Reminder</string>
+    <string name="label_add_events_reminder">Add Events Reminder</string>
+    <string name="label_set_alarm">Set Alarm</string>
 
 </resources>

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
-import com.example.pravallika.multiplealarms.beans.Reminder;
+import com.example.pravallika.multiplealarms.beans.EventsReminder;
 
 import java.util.List;
 
@@ -16,49 +16,49 @@ import java.util.List;
  * Created by RitenVithlani on 2/20/17.
  */
 
-public class EventsReminderAdapter extends ArrayAdapter<Reminder> {
+public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
 
-    public EventsReminderAdapter(Context context, List<Reminder> reminders) {
-        super(context, 0, reminders);
+    public EventsReminderAdapter(Context context, List<EventsReminder> eventsReminders) {
+        super(context, 0, eventsReminders);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View listItemView = convertView;
         if(null == convertView) {
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.events_reminder_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_events_reminder, parent, false);
         }
 
-        Reminder reminder = getItem(position);
+        EventsReminder eventsReminder = getItem(position);
 
-        TextView date = (TextView) listItemView.findViewById(R.id.tv_date);
-        TextView time = (TextView) listItemView.findViewById(R.id.tv_time);
-        TextView label = (TextView) listItemView.findViewById(R.id.tv_label);
+        TextView date = (TextView) listItemView.findViewById(R.id.tv_events_rem_date);
+        TextView time = (TextView) listItemView.findViewById(R.id.tv_events_rem_time);
+        TextView label = (TextView) listItemView.findViewById(R.id.tv_events_rem_label);
         TextView location = (TextView) listItemView.findViewById(R.id.tv_location);
 
-        if(null != reminder.getDate() && null!=date && !"".equals(reminder.getDate())) {
-            date.setText(reminder.getDate());
+        if (null != eventsReminder.getDate() && null != date && !"".equals(eventsReminder.getDate())) {
+            date.setText(eventsReminder.getDate());
         }
         else {
             date.setVisibility(View.GONE);
         }
 
-        if(null != reminder.getTime() && null!= time && !"".equals(reminder.getTime())) {
-            time.setText(reminder.getTime());
+        if (null != eventsReminder.getTime() && null != time && !"".equals(eventsReminder.getTime())) {
+            time.setText(eventsReminder.getTime());
         }
         else {
             time.setVisibility(View.GONE);
         }
 
-        if(null != reminder.getLabel() && null!=label && !"".equals(reminder.getLabel())) {
-            label.setText(reminder.getLabel());
+        if (null != eventsReminder.getLabel() && null != label && !"".equals(eventsReminder.getLabel())) {
+            label.setText(eventsReminder.getLabel());
         }
         else {
             label.setVisibility(View.GONE);
         }
 
-        if(null != reminder.getLocation() && null!=location && !"".equals(reminder.getLocation())) {
-            location.setText(reminder.getLocation());
+        if (null != eventsReminder.getLocation() && null != location && !"".equals(eventsReminder.getLocation())) {
+            location.setText(eventsReminder.getLocation());
         }
         else {
             location.setVisibility(View.GONE);

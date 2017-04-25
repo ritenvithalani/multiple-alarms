@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.activities.EventsReminderFormActivity;
 import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
-import com.example.pravallika.multiplealarms.beans.Reminder;
+import com.example.pravallika.multiplealarms.beans.EventsReminder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,29 +36,17 @@ public class EventsReminderFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_events_reminder, container, false);
 
         // Create a list of words
-        List<Reminder> reminders = new ArrayList<Reminder>();
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Ram birthday", "Mar 6", "12:00 AM", "at Home"));
-        reminders.add(new Reminder("Parents Marriage day", "Sep 10", "8:00 AM", "at Seattle"));
+        List<EventsReminder> eventsReminders = new ArrayList<EventsReminder>();
+        eventsReminders.add(new EventsReminder(1, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(2, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(3, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(4, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(5, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(6, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
+        eventsReminders.add(new EventsReminder(7, "Parents Marriage day", "Sep 10", "8:00 AM", "at Seattle", Boolean.TRUE));
 
         EventsReminderAdapter eventsReminderAdapter =
-                new EventsReminderAdapter(getActivity(), reminders);
+                new EventsReminderAdapter(getActivity(), eventsReminders);
 
         ListView listView = (ListView) rootView.findViewById(R.id.events_reminder_list);
 
@@ -69,7 +57,6 @@ public class EventsReminderFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), EventsReminderFormActivity.class);
                 startActivity(intent);
-
             }
         });
 
