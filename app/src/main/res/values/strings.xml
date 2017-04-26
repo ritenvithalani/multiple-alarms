@@ -32,5 +32,7 @@
     <string name="label_add_spl_reminder">Add Special Days Reminder</string>
     <string name="label_add_events_reminder">Add Events Reminder</string>
     <string name="label_set_alarm">Set Alarm</string>
+    <string name="spl_rem_notif_title">Reminder!!!</string>
+    <string name="turn_off">Turn off</string>
 
 </resources>

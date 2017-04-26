@@ -1,12 +1,18 @@
 package com.example.pravallika.multiplealarms.helpers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by RitenVithlani on 4/24/17.
  */
 
 public class Utility {
+
+    private static String DATE_FORMAT = "MMM dd, yyyy HH:mm";
+
 
     public static String today() {
         final Calendar c = Calendar.getInstance();
@@ -28,5 +34,34 @@ public class Utility {
         String now = hour + ":" + minute;
 
         return now;
+    }
+
+    public static Long getDurationInMillis(String date, String time) {
+        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        Date selectedTimestamp;
+        Long duration = new Long(0l);
+        try {
+            selectedTimestamp = format.parse(date + " " + time);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(selectedTimestamp);
+
+            duration = calendar.getTimeInMillis();
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return duration;
+    }
+
+    public static String formatMinute(String selectedTime) {
+        String formattedTime = selectedTime;
+        String min = formattedTime.split(":")[1];
+
+        if (min.length() == 1)
+            min = "0" + min;
+
+        formattedTime = formattedTime.split(":")[0] + ":" + min;
+        return formattedTime;
     }
 }

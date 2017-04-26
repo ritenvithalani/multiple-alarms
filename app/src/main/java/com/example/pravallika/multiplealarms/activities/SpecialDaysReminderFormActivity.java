@@ -1,8 +1,5 @@
 package com.example.pravallika.multiplealarms.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -14,23 +11,23 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
 import com.example.pravallika.multiplealarms.helpers.Utility;
-import com.example.pravallika.multiplealarms.receivers.AlarmReceiver;
 
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 public class SpecialDaysReminderFormActivity extends AppCompatActivity {
 
     private final String DEFAULT_SPL_REM_TIME_TEXT = "Set time";
     private final String DEFAULT_SPL_REM_DATE_TEXT = "Set date";
     private final Long DEFAULT_ID = -1l;
-    private final int MAX_VALUE = Integer.MAX_VALUE;
 
     Button btnSetSplReminder;
     LinearLayout llSetTime;
@@ -110,35 +107,25 @@ public class SpecialDaysReminderFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SpecialDaysReminder currentSpecialDaysReminder = extractCurrentSplReminder();
-
+                //validateInput();
                 saveSplRemToDB(currentSpecialDaysReminder);
-                setNotificationForReminder(currentSpecialDaysReminder);
                 setAlarmForReminder(currentSpecialDaysReminder);
                 finish();
             }
         });
     }
 
-    private void setNotificationForReminder(SpecialDaysReminder currentSpecialDaysReminder) {
-    }
-
     private void setAlarmForReminder(SpecialDaysReminder currentSpecialDaysReminder) {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Long triggerAtMillis = Utility.getDurationInMillis(currentSpecialDaysReminder.getDate(), currentSpecialDaysReminder.getTime());
 
-        Intent intent = new Intent(SpecialDaysReminderFormActivity.this, AlarmReceiver.class);
-        int requestCode = (int) (currentSpecialDaysReminder.getId() % MAX_VALUE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, requestCode,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        currentSpecialDaysReminder.getDate();
-        currentSpecialDaysReminder.getTime();
-        Long alertTime = new GregorianCalendar().getTimeInMillis() + 5000;
-        alarmManager.set(AlarmManager.RTC_WAKEUP, +3000, pendingIntent);
+        if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
+            AlarmHelper.setAlarm(SpecialDaysReminderFormActivity.this, currentSpecialDaysReminder.getId(), triggerAtMillis, true, currentSpecialDaysReminder.getLabel());
+        } else {
+            Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void saveSplRemToDB(SpecialDaysReminder currentSpecialDaysReminder) {
-
-
         boolean wasSuccessful = false;
         SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(SpecialDaysReminderFormActivity.this);
         try {
@@ -181,4 +168,5 @@ public class SpecialDaysReminderFormActivity extends AppCompatActivity {
 
         return specialDaysReminder;
     }
+
 }

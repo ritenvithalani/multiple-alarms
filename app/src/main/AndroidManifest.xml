@@ -35,7 +35,16 @@
             android:label="@string/label_set_alarm" />
 
         <receiver android:name=".receivers.AlarmReceiver" />
-        <receiver android:name=".receivers.NotificationReceiver" />
+
+        <receiver android:name=".receivers.SplReminderNotificationReceiver">
+            <intent-filter>
+                <action android:name="spl_rem_notif_off_click" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.example.pravallika.multiplealarms.services.RingtonePlayingService"
+            android:enabled="true" />
     </application>
 
 </manifest>

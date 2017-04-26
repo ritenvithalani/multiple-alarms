@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/large">
+
+    <ImageView
+        android:id="@+id/icon_spl_rem_notif"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_clock" />
+
+    <TextView
+        android:id="@+id/tv_spl_rem_notif_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/large"
+        android:layout_toRightOf="@id/icon_spl_rem_notif"
+        android:text="@string/spl_rem_notif_title"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:id="@+id/tv_spl_rem_notif_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_spl_rem_notif_title"
+        android:layout_marginLeft="@dimen/large"
+        android:layout_marginTop="@dimen/small"
+        android:layout_toRightOf="@id/icon_spl_rem_notif"
+        android:text="This is a reminder!!" />
+
+    <TextView
+        android:id="@+id/tv_spl_rem_notif_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/large"
+        android:layout_marginTop="@dimen/small"
+        android:text="VIEW" />
+
+    <!--<LinearLayout
+        android:id="@+id/ll_close_notif"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/tv_spl_rem_notif_message"
+        android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/iv_spl_rem_notif_off"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/ic_off_notification"
+            android:backgroundTint="@color/lightIcon"/>
+
+        <TextView
+            android:id="@+id/tv_spl_rem_notif_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/medium"
+            android:textSize="16sp"
+            android:textColor="@color/lightIcon"
+            android:text="@string/turn_off"/>
+    </LinearLayout>-->
+
+</RelativeLayout>
