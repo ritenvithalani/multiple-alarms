@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_multiple_alarm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.pravallika.multiplealarms.activities.MultipleAlarmActivity">
+
+   <ScrollView
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:paddingBottom="@dimen/activity_horizontal_margin">
+
+       <RelativeLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/clock_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:background="@drawable/ic_clock"
+        android:backgroundTint="@color/colorSecondaryText" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:textAppearanceLarge"        android:layout_toRightOf="@+id/clock_icon"
+        android:layout_toEndOf="@+id/clock_icon"
+        android:id="@+id/tv_time"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_below="@+id/tv_time"
+        android:id="@+id/from_time"/>
+
+    <TextView
+        android:id="@+id/set_from_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/setTime"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_toRightOf="@+id/from_time"
+        android:layout_below="@+id/tv_time"
+        android:layout_toEndOf="@+id/from_time"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingRight="25dp"
+        android:paddingEnd="25dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_below="@+id/from_time"
+        android:id="@+id/to_time"/>
+
+    <TextView
+        android:id="@+id/set_to_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/setTime"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_toRightOf="@+id/to_time"
+        android:layout_below="@+id/set_from_time"
+        android:layout_toEndOf="@+id/to_time"/>
+
+    <ImageView
+        android:id="@+id/calendar_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/ic_calendar"
+        android:layout_below="@+id/to_time"
+        android:backgroundTint="@color/colorSecondaryText"
+        android:padding="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Date"
+        android:layout_toRightOf="@+id/calendar_icon"
+        android:layout_below="@+id/set_to_time"
+        android:layout_toEndOf="@+id/calendar_icon"
+        android:textAppearance="?android:textAppearanceLarge" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="From"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="12dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_below="@+id/calendar_icon"
+        android:id="@+id/from_date"/>
+
+    <TextView
+        android:id="@+id/set_from_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Set Date"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_toRightOf="@+id/from_date"
+        android:layout_below="@+id/tv_date"
+        android:layout_toEndOf="@+id/from_date"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="25dp"
+        android:paddingEnd="25dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_below="@+id/from_date"
+        android:id="@+id/to_date"/>
+
+    <TextView
+        android:id="@+id/set_to_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="Set Date"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_toRightOf="@+id/to_date"
+        android:layout_below="@+id/set_from_date"
+        android:layout_toEndOf="@+id/to_date"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/to_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ToggleButton
+            android:id="@+id/sunday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/sunday"
+            android:textOff="S" />
+
+        <ToggleButton
+            android:id="@+id/monday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/monday"
+            android:textOff="M" />
+
+        <ToggleButton
+            android:id="@+id/tuesday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/tuesday"
+            android:textOff="T" />
+
+        <ToggleButton
+            android:id="@+id/wednesday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/Wednesday"
+            android:textOff="W" />
+
+        <ToggleButton
+            android:id="@+id/thursday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/thursday"
+            android:textOff="T" />
+
+        <ToggleButton
+            android:id="@+id/friday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/Friday"
+            android:textOff="F" />
+
+        <ToggleButton
+            android:id="@+id/saturday"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
+            android:layout_weight="1"
+            android:background="@drawable/rectangle_inactive"
+            android:text="@string/saturday"
+            android:textOff="S" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repeat"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_below="@id/linear_layout"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_marginTop="15dp"
+        android:id="@+id/repeat"/>
+
+    <EditText
+        android:id="@+id/set_repeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_marginTop="15dp"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_toRightOf="@+id/repeat"
+        android:hint="@string/RepetitionAlarmHint"
+        android:layout_below="@+id/linear_layout"
+        android:layout_toEndOf="@+id/repeat"/>
+
+    <LinearLayout
+        android:id="@+id/linear_layout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/repeat"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/label_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/ic_label"
+            android:backgroundTint="@color/colorSecondaryText"
+            android:padding="@dimen/activity_vertical_margin" />
+
+        <EditText
+            android:id="@+id/label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/MultipleAlarmHint"
+            android:inputType="textShortMessage"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:textAppearance="?android:textAppearanceMedium" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/setAlarmButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear_layout2"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rectangle_active"
+        android:text="@string/SetAlarm"
+        android:textColor="@color/colorIcons" />
+
+       </RelativeLayout>
+   </ScrollView>
+
+</RelativeLayout>

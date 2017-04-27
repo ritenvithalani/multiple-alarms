@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         btnMultipleAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent multipleAlarmIntent = new Intent(MainActivity.this, MainActivity.class);
+                Intent multipleAlarmIntent = new Intent(MainActivity.this, MultipleAlarmActivity.class);
                 startActivity(multipleAlarmIntent);
             }
         });
