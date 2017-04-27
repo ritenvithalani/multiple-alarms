@@ -68,8 +68,6 @@ public class SpecialDaysReminderDataSource {
                 specialDaysReminder.setActive(active);
 
                 specialDaysReminderList.add(specialDaysReminder);
-                /*Log.i("Name for row " + i, cursor.getString(cursor.getColumnIndex("contactname")));
-                Log.i("Bff for row " + i, String.valueOf(cursor.getInt(cursor.getColumnIndex("bff"))));*/
 
             } while (cursor.moveToNext());
         }

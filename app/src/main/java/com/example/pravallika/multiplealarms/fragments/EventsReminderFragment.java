@@ -4,16 +4,20 @@ package com.example.pravallika.multiplealarms.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.activities.AddEventsReminderActivity;
 import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
+import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
+import com.example.pravallika.multiplealarms.helpers.MultipleAlarmMultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +27,9 @@ import java.util.List;
  */
 public class EventsReminderFragment extends Fragment {
 
+    EventsReminderAdapter eventsReminderAdapter;
+    ListView listView;
+    List<EventsReminder> eventsReminders;
 
     public EventsReminderFragment() {
         // Required empty public constructor
@@ -35,32 +42,49 @@ public class EventsReminderFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_events_reminder, container, false);
 
-        // Create a list of words
-        List<EventsReminder> eventsReminders = new ArrayList<EventsReminder>();
-        eventsReminders.add(new EventsReminder(1, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(2, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(3, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(4, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(5, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(6, "Ram birthday", "Mar 6", "12:00 AM", "at Home", Boolean.TRUE));
-        eventsReminders.add(new EventsReminder(7, "Parents Marriage day", "Sep 10", "8:00 AM", "at Seattle", Boolean.TRUE));
-
-        EventsReminderAdapter eventsReminderAdapter =
-                new EventsReminderAdapter(getActivity(), eventsReminders);
-
-        ListView listView = (ListView) rootView.findViewById(R.id.events_reminder_list);
-
+        eventsReminderAdapter = new EventsReminderAdapter(getActivity());
+        TextView emptyMsg = (TextView) rootView.findViewById(R.id.tv_empty_events_reminder_msg);
+        listView = (ListView) rootView.findViewById(R.id.events_reminder_list);
         listView.setAdapter(eventsReminderAdapter);
+        listView.setEmptyView(emptyMsg);
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), AddEventsReminderActivity.class);
+                intent.putExtra("EventsReminderEntry", eventsReminderAdapter.getItem(position));
                 startActivity(intent);
             }
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        eventsReminderAdapter.clear();
+
+        // Create a list of eventsReminder
+        eventsReminders = new ArrayList<EventsReminder>();
+        EventsReminderDataSource eventsReminderDataSource = new EventsReminderDataSource(getActivity());
+        try {
+            eventsReminderDataSource.openReadableDatabase();
+            eventsReminders = eventsReminderDataSource.retrieveEventReminders();
+            eventsReminderDataSource.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("EventsReminderFrag", "Error while fetching EventsReminderContract records");
+        }
+
+        eventsReminderAdapter.addAll(eventsReminders);
+        eventsReminderAdapter.notifyDataSetChanged();
+
+        MultipleAlarmMultiChoiceModeListener multiModeListener = new MultipleAlarmMultiChoiceModeListener(getContext(), eventsReminders, eventsReminderAdapter);
+        listView.setMultiChoiceModeListener(multiModeListener);
     }
 
 }

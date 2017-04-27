@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
-
-import java.util.List;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
+import com.example.pravallika.multiplealarms.helpers.Utility;
 
 /**
  * Created by RitenVithlani on 2/20/17.
@@ -18,8 +20,11 @@ import java.util.List;
 
 public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
 
-    public EventsReminderAdapter(Context context, List<EventsReminder> eventsReminders) {
-        super(context, 0, eventsReminders);
+    Context context;
+
+    public EventsReminderAdapter(Context context) {
+        super(context, 0);
+        this.context = context;
     }
 
     @Override
@@ -29,12 +34,16 @@ public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.list_item_events_reminder, parent, false);
         }
 
-        EventsReminder eventsReminder = getItem(position);
+        final EventsReminder eventsReminder = getItem(position);
 
+        TextView id = (TextView) listItemView.findViewById(R.id.tv_list_events_rem_id);
         TextView date = (TextView) listItemView.findViewById(R.id.tv_events_rem_date);
         TextView time = (TextView) listItemView.findViewById(R.id.tv_events_rem_time);
         TextView label = (TextView) listItemView.findViewById(R.id.tv_events_rem_label);
-        TextView location = (TextView) listItemView.findViewById(R.id.tv_location);
+        TextView location = (TextView) listItemView.findViewById(R.id.tv_events_rem_location);
+        Switch eventsRemToggleSwitch = (Switch) listItemView.findViewById(R.id.ts_events_reminder);
+
+        id.setText(eventsReminder.getId() + "");
 
         if (null != eventsReminder.getDate() && null != date && !"".equals(eventsReminder.getDate())) {
             date.setText(eventsReminder.getDate());
@@ -63,6 +72,21 @@ public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
         else {
             location.setVisibility(View.GONE);
         }
+
+        eventsRemToggleSwitch.setChecked(null != eventsReminder.getActive() ? eventsReminder.getActive() : Boolean.TRUE);
+
+        eventsRemToggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
+                    AlarmHelper.setAlarm(context, eventsReminder.getId(), triggerAtMillis, true, eventsReminder.getLabel());
+                } else {
+                    AlarmHelper.cancelAlarm(context, eventsReminder.getId());
+                }
+            }
+        });
+
         return listItemView;
     }
 }

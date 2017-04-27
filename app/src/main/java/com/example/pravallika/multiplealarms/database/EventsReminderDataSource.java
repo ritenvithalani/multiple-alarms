@@ -1,5 +1,6 @@
 package com.example.pravallika.multiplealarms.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,8 +23,12 @@ public class EventsReminderDataSource {
         dbHelper = MultipleAlarmDBHelper.getInstance(context);
     }
 
-    public void open() throws SQLException {
+    public void openWritableDatabase() throws SQLException {
         database = dbHelper.getWritableDatabase();
+    }
+
+    public void openReadableDatabase() throws SQLException {
+        database = dbHelper.getReadableDatabase();
     }
 
     public void close() {
@@ -36,7 +41,7 @@ public class EventsReminderDataSource {
 
         List<EventsReminder> eventReminderList = new ArrayList<EventsReminder>();
         if (cursor.moveToFirst()) {
-            for (int i = 1; cursor.moveToNext(); i++) {
+            do {
                 int idIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract._ID);
                 int labelIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL);
                 int dateIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE);
@@ -44,7 +49,7 @@ public class EventsReminderDataSource {
                 int locationIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION);
                 int activeIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE);
 
-                Integer id = cursor.getInt(idIndex);
+                Long id = cursor.getLong(idIndex);
                 String label = cursor.getString(labelIndex);
                 String date = cursor.getString(dateIndex);
                 String time = cursor.getString(timeIndex);
@@ -53,16 +58,69 @@ public class EventsReminderDataSource {
 
                 Boolean active = Boolean.TRUE;
                 if (iActive == 0) active = Boolean.FALSE;
-                EventsReminder eventsReminder = new EventsReminder(id, label, date, time, location, active);
+
+                EventsReminder eventsReminder = new EventsReminder();
+                eventsReminder.setId(id);
+                eventsReminder.setLabel(label);
+                eventsReminder.setLocation(location);
+                eventsReminder.setDate(date);
+                eventsReminder.setTime(time);
+                eventsReminder.setActive(active);
 
                 eventReminderList.add(eventsReminder);
-                /*Log.i("Name for row " + i, cursor.getString(cursor.getColumnIndex("contactname")));
-                Log.i("Bff for row " + i, String.valueOf(cursor.getInt(cursor.getColumnIndex("bff"))));*/
-
-            }
+            } while (cursor.moveToNext());
         }
         cursor.close();
 
         return eventReminderList;
+    }
+
+    public Long insertEventsReminder(EventsReminder eventsReminder) {
+        Long insertedRowId = -1l;
+        try {
+            ContentValues initialValues = new ContentValues();
+
+            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
+            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
+            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
+            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
+            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
+
+            insertedRowId = database.insert(MultipleAlarmContract.EventsReminderContract.TABLE_NAME, null, initialValues);
+        } catch (Exception e) {
+            //Do nothing -will return false if there is an exception
+        }
+        return insertedRowId;
+    }
+
+    public boolean updateEventsReminder(EventsReminder eventsReminder) {
+        boolean didSucceed = false;
+        try {
+            Long rowId = (long) eventsReminder.getId();
+            ContentValues updateValues = new ContentValues();
+
+            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
+            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
+            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
+            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
+            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
+
+            didSucceed = database.update(MultipleAlarmContract.EventsReminderContract.TABLE_NAME, updateValues,
+                    MultipleAlarmContract.EventsReminderContract._ID + "=" + rowId, null) > 0;
+        } catch (Exception e) {
+            //Do nothing -will return false if there is an exception
+        }
+        return didSucceed;
+    }
+
+    public boolean deleteEventsReminder(Long id) {
+        boolean didDelete = false;
+        try {
+            didDelete = database.delete(MultipleAlarmContract.EventsReminderContract.TABLE_NAME,
+                    MultipleAlarmContract.EventsReminderContract._ID + "=" + id, null) > 0;
+        } catch (Exception e) {
+            //Do nothing -return value already set to false
+        }
+        return didDelete;
     }
 }

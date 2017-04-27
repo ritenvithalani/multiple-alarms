@@ -7,27 +7,18 @@ import java.io.Serializable;
  */
 
 public class EventsReminder implements Serializable {
-    private Integer id;
+    private Long id;
     private String label;
     private String date;
     private String time;
     private String location;
     private Boolean active;
 
-    public EventsReminder(Integer id, String label, String date, String time, String location, Boolean active) {
-        this.id = id;
-        this.label = label;
-        this.date = date;
-        this.time = time;
-        this.location = location;
-        this.active = active;
-    }
-
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

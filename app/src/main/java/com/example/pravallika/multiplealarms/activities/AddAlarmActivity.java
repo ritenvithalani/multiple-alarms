@@ -18,7 +18,7 @@ import com.example.pravallika.multiplealarms.helpers.Utility;
 
 public class AddAlarmActivity extends AppCompatActivity {
     private static final String DEFAULT_ALARM_TEXT = "Set Time";
-    Alarm currentAlarm;
+
     boolean[] activeDays = new boolean[]{false, false, false, false, false, false, false};
     String[] days = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     Button sunday, monday, tuesday, wednesday, thursday, friday, saturday;
@@ -43,9 +43,9 @@ public class AddAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //extract user input
-                currentAlarm = extractUserInput();
+                Alarm currentAlarm = extractUserInput();
                 //save currentAlarm to DB
-                saveAlarm();
+                saveAlarm(currentAlarm);
                 //set the actual currentAlarm
 
                 finish();
@@ -66,7 +66,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         // what if no days are selected?
     }
 
-    private void saveAlarm() {
+    private void saveAlarm(Alarm currentAlarm) {
         boolean wasSuccessful = false;
         AlarmDataSource dataSource = new AlarmDataSource(this);
         try {
