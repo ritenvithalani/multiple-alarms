@@ -10,14 +10,14 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/ic_clock" />
+        android:background="@drawable/ic_action_access_alarm" />
 
     <TextView
         android:id="@+id/tv_spl_rem_notif_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/large"
-        android:layout_toRightOf="@id/icon_spl_rem_notif"
+        android:layout_toRightOf="@+id/icon_spl_rem_notif"
         android:text="@string/spl_rem_notif_title"
         android:textAppearance="?android:textAppearanceMedium"
         android:textColor="@color/colorPrimaryText" />
@@ -26,10 +26,10 @@
         android:id="@+id/tv_spl_rem_notif_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_spl_rem_notif_title"
+        android:layout_below="@+id/tv_spl_rem_notif_title"
         android:layout_marginLeft="@dimen/large"
         android:layout_marginTop="@dimen/small"
-        android:layout_toRightOf="@id/icon_spl_rem_notif"
+        android:layout_toRightOf="@+id/icon_spl_rem_notif"
         android:text="This is a reminder!!"
         android:textColor="@color/colorPrimaryText" />
 

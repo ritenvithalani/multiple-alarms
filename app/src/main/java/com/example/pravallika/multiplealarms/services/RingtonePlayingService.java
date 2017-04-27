@@ -84,7 +84,7 @@ public class RingtonePlayingService extends Service {
         builder = new NotificationCompat.Builder(this);
 
         remoteViews = new RemoteViews(getPackageName(), R.layout.notification_spl_reminder);
-        remoteViews.setImageViewResource(R.id.icon_spl_rem_notif, R.drawable.ic_clock);
+        remoteViews.setImageViewResource(R.id.icon_spl_rem_notif, R.drawable.ic_action_access_alarm);
         remoteViews.setTextViewText(R.id.tv_spl_rem_notif_message, notificationMessage);
 
         notificationId = (int) System.currentTimeMillis();
