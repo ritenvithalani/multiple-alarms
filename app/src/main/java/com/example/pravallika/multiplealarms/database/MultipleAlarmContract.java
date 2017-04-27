@@ -32,4 +32,13 @@ public class MultipleAlarmContract {
         public static final String COLUMN_NAME_TIME = "time";
         public static final String COLUMN_NAME_ACTIVE = "active";
     }
+
+    public static class AlarmContract implements BaseColumns {
+        public static final String TABLE_NAME = "alarms";
+        public static final String _ID = "_id";
+        public static final String COLUMN_NAME_LABEL = "label";
+        public static final String COLUMN_NAME_TIME = "time";
+        public static final String COLUMN_NAME_DAYS = "days";
+        public static final String COLUMN_NAME_ACTIVE = "active";
+    }
 }

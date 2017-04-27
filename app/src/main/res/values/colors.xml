@@ -9,6 +9,7 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="grey_9">#999999</color>
     <color name="grey_a">#aaaaaa</color>
+    <color name="grey_d">#dddddd</color>
 
     <color name="darkIcon">#333333</color>
     <color name="mediumLightIcon">#666666</color>

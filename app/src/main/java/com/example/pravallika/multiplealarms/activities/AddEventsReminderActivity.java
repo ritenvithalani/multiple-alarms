@@ -10,7 +10,7 @@ import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
 
-public class EventsReminderFormActivity extends AppCompatActivity {
+public class AddEventsReminderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

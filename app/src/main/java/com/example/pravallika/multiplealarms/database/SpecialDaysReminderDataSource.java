@@ -96,7 +96,7 @@ public class SpecialDaysReminderDataSource {
         return insertedRowId;
     }
 
-    public boolean updateContact(SpecialDaysReminder specialDaysReminder) {
+    public boolean updateSplDaysReminder(SpecialDaysReminder specialDaysReminder) {
         boolean didSucceed = false;
         try {
             Long rowId = (long) specialDaysReminder.getId();

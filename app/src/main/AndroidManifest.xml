@@ -25,15 +25,18 @@
                 android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.SpecialDaysReminderFormActivity"
+            android:name=".activities.AddSpecialDaysReminderActivity"
             android:label="@string/label_add_spl_reminder" />
         <activity
-            android:name=".activities.EventsReminderFormActivity"
+            android:name=".activities.AddEventsReminderActivity"
             android:label="@string/label_add_events_reminder" />
         <activity
             android:name=".activities.AlarmActivity"
-            android:label="@string/label_set_alarm" />
+            android:label="@string/label_alarm_list" />
 
+        <activity
+            android:name=".activities.AddAlarmActivity"
+            android:label="@string/label_set_alarm" />
         <receiver android:name=".receivers.AlarmReceiver" />
 
         <receiver android:name=".receivers.SplReminderNotificationReceiver">

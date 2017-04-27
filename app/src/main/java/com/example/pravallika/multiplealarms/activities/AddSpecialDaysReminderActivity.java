@@ -23,7 +23,7 @@ import com.example.pravallika.multiplealarms.helpers.Utility;
 
 import java.util.Calendar;
 
-public class SpecialDaysReminderFormActivity extends AppCompatActivity {
+public class AddSpecialDaysReminderActivity extends AppCompatActivity {
 
     private final String DEFAULT_SPL_REM_TIME_TEXT = "Set time";
     private final String DEFAULT_SPL_REM_DATE_TEXT = "Set date";
@@ -119,7 +119,7 @@ public class SpecialDaysReminderFormActivity extends AppCompatActivity {
         Long triggerAtMillis = Utility.getDurationInMillis(currentSpecialDaysReminder.getDate(), currentSpecialDaysReminder.getTime());
 
         if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
-            AlarmHelper.setAlarm(SpecialDaysReminderFormActivity.this, currentSpecialDaysReminder.getId(), triggerAtMillis, true, currentSpecialDaysReminder.getLabel());
+            AlarmHelper.setAlarm(AddSpecialDaysReminderActivity.this, currentSpecialDaysReminder.getId(), triggerAtMillis, true, currentSpecialDaysReminder.getLabel());
         } else {
             Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
         }
@@ -127,7 +127,7 @@ public class SpecialDaysReminderFormActivity extends AppCompatActivity {
 
     private void saveSplRemToDB(SpecialDaysReminder currentSpecialDaysReminder) {
         boolean wasSuccessful = false;
-        SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(SpecialDaysReminderFormActivity.this);
+        SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(AddSpecialDaysReminderActivity.this);
         try {
             dataSource.openWritableDatabase();
 
@@ -136,7 +136,7 @@ public class SpecialDaysReminderFormActivity extends AppCompatActivity {
                 wasSuccessful = newId > 0;
                 currentSpecialDaysReminder.setId(newId);
             } else {
-                wasSuccessful = dataSource.updateContact(currentSpecialDaysReminder);
+                wasSuccessful = dataSource.updateSplDaysReminder(currentSpecialDaysReminder);
             }
             dataSource.close();
         } catch (Exception e) {

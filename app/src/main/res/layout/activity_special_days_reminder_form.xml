@@ -146,7 +146,7 @@
         android:id="@+id/btn_set_spl_reminder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rectangle"
+        android:background="@drawable/rectangle_active"
         android:text="@string/text_set_reminder"
         android:textColor="@color/colorIcons" />
 

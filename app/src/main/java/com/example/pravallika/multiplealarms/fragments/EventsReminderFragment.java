@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.pravallika.multiplealarms.R;
-import com.example.pravallika.multiplealarms.activities.EventsReminderFormActivity;
+import com.example.pravallika.multiplealarms.activities.AddEventsReminderActivity;
 import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
 
@@ -55,7 +55,7 @@ public class EventsReminderFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), EventsReminderFormActivity.class);
+                Intent intent = new Intent(getActivity(), AddEventsReminderActivity.class);
                 startActivity(intent);
             }
         });

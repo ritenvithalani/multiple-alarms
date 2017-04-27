@@ -73,12 +73,12 @@ public class ReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (currentTab == 0) {
-                    // Invoke Special days reminder form
-                    Intent intent = new Intent(ReminderActivity.this, SpecialDaysReminderFormActivity.class);
+                    // Invoke Special activeDays reminder form
+                    Intent intent = new Intent(ReminderActivity.this, AddSpecialDaysReminderActivity.class);
                     startActivity(intent);
                 } else if (currentTab == 1) {
                     // Invoke events reminder form
-                    Intent intent = new Intent(ReminderActivity.this, EventsReminderFormActivity.class);
+                    Intent intent = new Intent(ReminderActivity.this, AddEventsReminderActivity.class);
                     startActivity(intent);
                 }
 

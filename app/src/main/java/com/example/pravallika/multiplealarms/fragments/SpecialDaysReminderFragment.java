@@ -13,7 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
-import com.example.pravallika.multiplealarms.activities.SpecialDaysReminderFormActivity;
+import com.example.pravallika.multiplealarms.activities.AddSpecialDaysReminderActivity;
 import com.example.pravallika.multiplealarms.adapters.SpecialDaysReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
@@ -53,7 +53,7 @@ public class SpecialDaysReminderFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(), SpecialDaysReminderFormActivity.class);
+                Intent intent = new Intent(getActivity(), AddSpecialDaysReminderActivity.class);
                 intent.putExtra("SpecialDaysReminderEntry", specialDaysReminderAdapter.getItem(position));
                 startActivity(intent);
             }

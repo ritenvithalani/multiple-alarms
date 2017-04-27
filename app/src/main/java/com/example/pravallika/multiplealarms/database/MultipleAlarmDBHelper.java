@@ -16,19 +16,26 @@ public class MultipleAlarmDBHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SPL_DAYS_REMINDER =
             "create table " + MultipleAlarmContract.SpecialDaysReminderContract.TABLE_NAME
                     + "(" + MultipleAlarmContract.SpecialDaysReminderContract._ID + " integer primary key autoincrement, "
-                    + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_LABEL + " text not null, "
+                    + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_LABEL + " text, "
                     + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_TITLE + " text not null, "
                     + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_DATE + " text not null, "
                     + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_TIME + " text not null, "
-                    + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_ACTIVE + " boolean);";
+                    + MultipleAlarmContract.SpecialDaysReminderContract.COLUMN_NAME_ACTIVE + " integer);";
     private static final String CREATE_TABLE_EVENTS_REMINDER =
             "create table " + MultipleAlarmContract.EventsReminderContract.TABLE_NAME
                     + "(" + MultipleAlarmContract.EventsReminderContract._ID + " integer primary key autoincrement, "
-                    + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL + " text not null, "
+                    + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL + " text, "
                     + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE + " text not null, "
                     + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME + " text not null, "
                     + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION + " text, "
-                    + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE + " boolean);";
+                    + MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE + " integer);";
+    private static final String CREATE_TABLE_ALARM =
+            "create table " + MultipleAlarmContract.AlarmContract.TABLE_NAME
+                    + "(" + MultipleAlarmContract.AlarmContract._ID + " integer primary key autoincrement, "
+                    + MultipleAlarmContract.AlarmContract.COLUMN_NAME_LABEL + " text, "
+                    + MultipleAlarmContract.AlarmContract.COLUMN_NAME_DAYS + " text not null, "
+                    + MultipleAlarmContract.AlarmContract.COLUMN_NAME_TIME + " text not null, "
+                    + MultipleAlarmContract.AlarmContract.COLUMN_NAME_ACTIVE + " integer);";
     private static MultipleAlarmDBHelper multipleAlarmDBHelper;
 
     private MultipleAlarmDBHelper(Context context) {
@@ -46,6 +53,7 @@ public class MultipleAlarmDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(CREATE_TABLE_SPL_DAYS_REMINDER);
         database.execSQL(CREATE_TABLE_EVENTS_REMINDER);
+        database.execSQL(CREATE_TABLE_ALARM);
     }
 
     @Override
