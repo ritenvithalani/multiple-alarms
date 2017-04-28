@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_list_multiple_alarm_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/alarm_from_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/alarm_from_time"
+        android:layout_toEndOf="@+id/alarm_from_time"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/colorPrimaryText"
+        android:id="@+id/toTime"/>
+
+    <TextView
+        android:id="@+id/alarm_to_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/toTime"
+        android:layout_toEndOf="@+id/toTime"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:id="@+id/alarm_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/alarm_from_time"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:id="@+id/toDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/alarm_from_time"
+        android:layout_toEndOf="@id/alarm_from_date"
+        android:layout_toRightOf="@id/alarm_from_date"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:id="@+id/alarm_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceLarge"
+        android:layout_below="@+id/alarm_from_time"
+        android:layout_toRightOf="@+id/toDate"
+        android:layout_toEndOf="@id/toDate"
+        android:textColor="@color/colorPrimaryText" />
+
+    <TextView
+        android:id="@+id/alarm_selected_days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_from_date"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/colorSecondaryText" />
+
+    <TextView
+        android:id="@+id/repeat_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_from_date"
+        android:layout_toEndOf="@id/alarm_selected_days"
+        android:layout_toRightOf="@id/alarm_selected_days"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/colorSecondaryText" />
+
+    <TextView
+        android:id="@+id/tv_alarm_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alarm_selected_days"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="@color/colorPrimaryText" />
+
+
+    <Switch
+        android:id="@+id/alarm_toggle_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+</RelativeLayout>
