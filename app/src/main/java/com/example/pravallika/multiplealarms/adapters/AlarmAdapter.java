@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.Alarm;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import static com.example.pravallika.multiplealarms.activities.AddAlarmActivity.DAY_OF_WEEK_SEPERATOR;
 
@@ -55,7 +56,11 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         }
 
         if (null != alarm.getSelectedDays() && !"".equals(alarm.getSelectedDays())) {
-            selectedDays.setText(alarm.getSelectedDays());
+            if (alarm.getSelectedDays().length() == 7) {
+                selectedDays.setText("Everyday");
+            } else {
+                selectedDays.setText(alarm.getSelectedDays());
+            }
         } else {
             selectedDays.setVisibility(View.GONE);
         }
@@ -69,7 +74,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
                     for (String dayOfWeek : alarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
                         String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, alarm.getTime());
                         Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, alarm.getTime());
-                        AlarmHelper.setAlarm(context, alarm.getId(), triggerAtMillis, false, "");
+                        AlarmHelper.setAlarm(context, triggerAtMillis, alarm.getLabel(), MultipleAlarmConstants.FeatureType.ALARM);
                     }
                 } else {
                     AlarmHelper.cancelAlarm(context, alarm.getId());

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.pravallika.multiplealarms.activities.ActiveAlarmActivity;
 import com.example.pravallika.multiplealarms.services.RingtonePlayingService;
 
 /**
@@ -17,13 +18,16 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
 
         boolean isAlarmOn = intent.getBooleanExtra("isAlarmOn", false);
-        boolean isNotificationNeeded = intent.getBooleanExtra("isNotificationNeeded", false);
-        String notificationMessage = intent.getStringExtra("notificationMessage");
+        String alarmLabel = intent.getStringExtra("alarmLabel");
+        int requestCode = intent.getIntExtra("requestCode", 0);
 
         serviceIntent.putExtra("isAlarmOn", isAlarmOn);
-        serviceIntent.putExtra("isNotificationNeeded", isNotificationNeeded);
-        serviceIntent.putExtra("notificationMessage", notificationMessage);
-
+        serviceIntent.putExtra("alarmLabel", alarmLabel);
         context.startService(serviceIntent);
+
+        Intent activeAlarmIntent = new Intent(context, ActiveAlarmActivity.class);
+        activeAlarmIntent.putExtra("requestCode", requestCode);
+        activeAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(activeAlarmIntent);
     }
 }

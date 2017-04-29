@@ -19,7 +19,7 @@ import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
 import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import static com.example.pravallika.multiplealarms.R.id.et_multiple_alarms_repeat;
 import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_from_date;

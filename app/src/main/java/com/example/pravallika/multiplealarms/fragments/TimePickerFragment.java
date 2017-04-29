@@ -32,7 +32,7 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        String min = (minute < 9) ? "0" + minute : minute + "";
+        String min = (minute <= 9) ? "0" + minute : minute + "";
         String displayTime = hourOfDay + ":" + min;
         if(null!= this.getArguments() && "splTimePicker".equals(this.getArguments().getString("splTimePicker"))) {
             TextView txtView = (TextView) getActivity().findViewById(R.id.tv_spl_rem_set_time);

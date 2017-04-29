@@ -17,7 +17,7 @@ import com.example.pravallika.multiplealarms.activities.AddSpecialDaysReminderAc
 import com.example.pravallika.multiplealarms.adapters.SpecialDaysReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
-import com.example.pravallika.multiplealarms.helpers.MultipleAlarmMultiChoiceModeListener;
+import com.example.pravallika.multiplealarms.listeners.MultipleAlarmMultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;

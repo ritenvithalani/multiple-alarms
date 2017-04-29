@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
-import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
+import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 /**
  * Created by RitenVithlani on 2/20/17.
@@ -80,9 +81,10 @@ public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
-                    AlarmHelper.setAlarm(context, eventsReminder.getId(), triggerAtMillis, true, eventsReminder.getLabel());
+                    NotificationHelper.createNotification(context, triggerAtMillis, eventsReminder.getLabel(), MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 } else {
-                    AlarmHelper.cancelAlarm(context, eventsReminder.getId());
+                    Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
+                    NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 }
             }
         });

@@ -6,50 +6,40 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
-import com.example.pravallika.multiplealarms.receivers.AlarmReceiver;
+import com.example.pravallika.multiplealarms.receivers.NotificationReceiver;
 import com.example.pravallika.multiplealarms.utils.Utility;
-
-import static java.lang.Integer.MAX_VALUE;
 
 /**
  * Created by RitenVithlani on 4/24/17.
  */
 
-public class AlarmHelper {
+public class NotificationHelper {
 
-    public static void cancelAlarm(Context context, long cancelId) {
+    public static void cancelNotification(Context context, long triggerTimeInMillis, MultipleAlarmConstants.FeatureType featureType) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        int requestCode = AlarmHelper.getRequestCode(cancelId);
+        int requestCode = Utility.getUniqueRequestCode(triggerTimeInMillis, featureType);
 
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("isAlarmOn", false);
+        Intent intent = new Intent(context, NotificationReceiver.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // To stop the alarm immediately if its ringing
-        context.sendBroadcast(intent);
 
         pendingIntent.cancel();
         alarmManager.cancel(pendingIntent);
     }
 
-    public static void setAlarm(Context context, long triggerTimeInMillis, String label, MultipleAlarmConstants.FeatureType featureType) {
+    public static void createNotification(Context context, long triggerTimeInMillis, String notificationMessage, MultipleAlarmConstants.FeatureType featureType) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int requestCode = Utility.getUniqueRequestCode(triggerTimeInMillis, featureType);
 
-        Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("isAlarmOn", true);
-        intent.putExtra("alarmLabel", label);
+        Intent intent = new Intent(context, NotificationReceiver.class);
+        intent.putExtra("notificationMessage", notificationMessage);
         intent.putExtra("requestCode", requestCode);
+        intent.putExtra("notificationTitle", featureType.title());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
-    }
-
-    public static int getRequestCode(Long id) {
-        return (int) (id % MAX_VALUE);
     }
 }

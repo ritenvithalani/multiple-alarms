@@ -13,11 +13,12 @@ import android.widget.Toast;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
-import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import java.util.Calendar;
 
@@ -85,17 +86,17 @@ public class AddEventsReminderActivity extends AppCompatActivity {
                 EventsReminder currentEventsReminder = extractCurrentSplReminder();
                 //validateInput();
                 saveEventsRemToDB(currentEventsReminder);
-                setAlarmForReminder(currentEventsReminder);
+                setNotificationForReminder(currentEventsReminder);
                 finish();
             }
         });
     }
 
-    private void setAlarmForReminder(EventsReminder eventsReminder) {
+    private void setNotificationForReminder(EventsReminder eventsReminder) {
         Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
 
         if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
-            AlarmHelper.setAlarm(AddEventsReminderActivity.this, eventsReminder.getId(), triggerAtMillis, true, eventsReminder.getLabel());
+            NotificationHelper.createNotification(AddEventsReminderActivity.this, triggerAtMillis, eventsReminder.getLabel(), MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
         } else {
             Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
         }

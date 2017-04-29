@@ -13,10 +13,11 @@ import android.widget.ToggleButton;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.Alarm;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.database.AlarmDataSource;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
 import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import static com.example.pravallika.multiplealarms.R.id.set_time;
 
@@ -58,7 +59,7 @@ public class AddAlarmActivity extends AppCompatActivity {
         for (String dayOfWeek : currentAlarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
             String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, currentAlarm.getTime());
             Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, currentAlarm.getTime());
-            AlarmHelper.setAlarm(AddAlarmActivity.this, currentAlarm.getId(), triggerAtMillis, false, "");
+            AlarmHelper.setAlarm(AddAlarmActivity.this, triggerAtMillis, currentAlarm.getLabel(), MultipleAlarmConstants.FeatureType.ALARM);
         }
     }
 

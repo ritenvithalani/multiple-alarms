@@ -1,10 +1,14 @@
-package com.example.pravallika.multiplealarms.helpers;
+package com.example.pravallika.multiplealarms.utils;
+
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+
+import static java.lang.Integer.MAX_VALUE;
 
 /**
  * Created by RitenVithlani on 4/24/17.
@@ -14,10 +18,6 @@ public class Utility {
 
     private static String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     private static String[] daysOfWeek = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
-    private static String DATE_TIME_FORMAT = "MMM dd, yyyy HH:mm";
-    private static String TIME_FORMAT = "HH:mm";
-    private static String DATE_FORMAT = "MMM dd, yyyy";
 
     // Returns today in format MMM dd, yyyy
     public static String today() {
@@ -100,7 +100,7 @@ public class Utility {
 
     // Input day in Apr 27, 2017 format, output will be 5 since it is Thursday on this day. (1 for Sunday and 7 for Saturday)
     private static int calculateDayOfWeek(String day) {
-        SimpleDateFormat format = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat format = new SimpleDateFormat(MultipleAlarmConstants.DATE_FORMAT);
         Calendar calendar = Calendar.getInstance();
         Date givenDay;
         try {
@@ -126,7 +126,7 @@ public class Utility {
 
     // Converts the given date and time into milliseconds
     public static Long getDurationInMillis(String date, String time) {
-        SimpleDateFormat format = new SimpleDateFormat(DATE_TIME_FORMAT);
+        SimpleDateFormat format = new SimpleDateFormat(MultipleAlarmConstants.DATE_TIME_FORMAT);
         Date selectedTimestamp;
         Long duration = new Long(0l);
         try {
@@ -158,7 +158,7 @@ public class Utility {
     // Will return true if time1Str > time2Str
     public static boolean compareTime(String time1Str, String time2Str) {
         boolean time1Greater = false;
-        SimpleDateFormat parser = new SimpleDateFormat(TIME_FORMAT);
+        SimpleDateFormat parser = new SimpleDateFormat(MultipleAlarmConstants.TIME_FORMAT);
 
         try {
             Date time1 = parser.parse(time1Str);
@@ -175,7 +175,7 @@ public class Utility {
     // Will return true if date1Str > date2Str
     public static boolean compareDate(String date1Str, String date2Str) {
         boolean date1Greater = false;
-        SimpleDateFormat parser = new SimpleDateFormat(DATE_FORMAT);
+        SimpleDateFormat parser = new SimpleDateFormat(MultipleAlarmConstants.DATE_FORMAT);
 
         try {
             Date date1 = parser.parse(date1Str);
@@ -200,5 +200,9 @@ public class Utility {
         }
 
         return nextAvailableDay;
+    }
+
+    public static int getUniqueRequestCode(Long triggerTimeInMillis, MultipleAlarmConstants.FeatureType featureType) {
+        return (int) ((triggerTimeInMillis % MAX_VALUE) + featureType.id());
     }
 }

@@ -14,7 +14,7 @@ import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.adapters.MultipleAlarmAdapter;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
 import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
-import com.example.pravallika.multiplealarms.helpers.MultipleAlarmMultiChoiceModeListener;
+import com.example.pravallika.multiplealarms.listeners.MultipleAlarmMultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;

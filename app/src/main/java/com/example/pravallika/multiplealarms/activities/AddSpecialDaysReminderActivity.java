@@ -15,11 +15,12 @@ import android.widget.Toast;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
-import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import java.util.Calendar;
 
@@ -109,17 +110,17 @@ public class AddSpecialDaysReminderActivity extends AppCompatActivity {
                 SpecialDaysReminder currentSpecialDaysReminder = extractCurrentSplReminder();
                 //validateInput();
                 saveSplRemToDB(currentSpecialDaysReminder);
-                setAlarmForReminder(currentSpecialDaysReminder);
+                setNotificationForReminder(currentSpecialDaysReminder);
                 finish();
             }
         });
     }
 
-    private void setAlarmForReminder(SpecialDaysReminder currentSpecialDaysReminder) {
+    private void setNotificationForReminder(SpecialDaysReminder currentSpecialDaysReminder) {
         Long triggerAtMillis = Utility.getDurationInMillis(currentSpecialDaysReminder.getDate(), currentSpecialDaysReminder.getTime());
 
         if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
-            AlarmHelper.setAlarm(AddSpecialDaysReminderActivity.this, currentSpecialDaysReminder.getId(), triggerAtMillis, true, currentSpecialDaysReminder.getLabel());
+            NotificationHelper.createNotification(AddSpecialDaysReminderActivity.this, triggerAtMillis, currentSpecialDaysReminder.getLabel(), MultipleAlarmConstants.FeatureType.SPECIAL_REMINDER);
         } else {
             Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
         }

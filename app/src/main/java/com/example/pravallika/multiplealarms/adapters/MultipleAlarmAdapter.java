@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 /**
  * Created by RitenVithlani on 4/26/17.

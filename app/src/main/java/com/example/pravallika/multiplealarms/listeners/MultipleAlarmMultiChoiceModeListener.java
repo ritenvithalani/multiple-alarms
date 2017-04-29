@@ -1,4 +1,4 @@
-package com.example.pravallika.multiplealarms.helpers;
+package com.example.pravallika.multiplealarms.listeners;
 
 import android.content.Context;
 import android.view.ActionMode;
@@ -84,45 +84,61 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
 
     private void removeItem(ITEM_TYPE item) {
         if (item instanceof SpecialDaysReminder) {
-            SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(context);
-            try {
-                dataSource.openWritableDatabase();
-                dataSource.deleteSplReminder(((SpecialDaysReminder) item).getId());
-                dataSource.close();
-            } catch (Exception e) {
-                Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+            deleteSpecialDaysReminder((SpecialDaysReminder) item);
         } else if (item instanceof EventsReminder) {
-            EventsReminderDataSource dataSource = new EventsReminderDataSource(context);
-            try {
-                dataSource.openWritableDatabase();
-                dataSource.deleteEventsReminder(((EventsReminder) item).getId());
-                dataSource.close();
-            } catch (Exception e) {
-                Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+            deleteEventsReminder((EventsReminder) item);
         } else if (item instanceof Alarm) {
-            AlarmDataSource dataSource = new AlarmDataSource(context);
-            try {
-                dataSource.openWritableDatabase();
-                dataSource.deleteAlarm(((Alarm) item).getId());
-                dataSource.close();
-            } catch (Exception e) {
-                Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+            deleteAlarm((Alarm) item);
         } else if (item instanceof MultipleAlarm) {
-            MultipleAlarmDataSource dataSource = new MultipleAlarmDataSource(context);
-            try {
-                dataSource.openWritableDatabase();
-                dataSource.deleteMultipleAlarm(((MultipleAlarm) item).getId());
-                dataSource.close();
-            } catch (Exception e) {
-                Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
-                e.printStackTrace();
-            }
+            deleteMultipleAlarm((MultipleAlarm) item);
+        }
+    }
+
+    private void deleteMultipleAlarm(MultipleAlarm item) {
+        MultipleAlarmDataSource dataSource = new MultipleAlarmDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+            dataSource.deleteMultipleAlarm(item.getId());
+            dataSource.close();
+        } catch (Exception e) {
+            Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteAlarm(Alarm item) {
+        AlarmDataSource dataSource = new AlarmDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+            dataSource.deleteAlarm(item.getId());
+            dataSource.close();
+        } catch (Exception e) {
+            Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteEventsReminder(EventsReminder item) {
+        EventsReminderDataSource dataSource = new EventsReminderDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+            dataSource.deleteEventsReminder(item.getId());
+            dataSource.close();
+        } catch (Exception e) {
+            Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteSpecialDaysReminder(SpecialDaysReminder item) {
+        SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+            dataSource.deleteSplReminder(item.getId());
+            dataSource.close();
+        } catch (Exception e) {
+            Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
+            e.printStackTrace();
         }
     }
 

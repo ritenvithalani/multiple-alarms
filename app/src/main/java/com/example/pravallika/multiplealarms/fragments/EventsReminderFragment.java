@@ -17,7 +17,7 @@ import com.example.pravallika.multiplealarms.activities.AddEventsReminderActivit
 import com.example.pravallika.multiplealarms.adapters.EventsReminderAdapter;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
 import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
-import com.example.pravallika.multiplealarms.helpers.MultipleAlarmMultiChoiceModeListener;
+import com.example.pravallika.multiplealarms.listeners.MultipleAlarmMultiChoiceModeListener;
 
 import java.util.ArrayList;
 import java.util.List;

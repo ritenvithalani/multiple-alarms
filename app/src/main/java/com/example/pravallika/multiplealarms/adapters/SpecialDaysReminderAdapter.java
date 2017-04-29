@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
-import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.helpers.Utility;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
+import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 /**
  * Created by RitenVithlani on 2/20/17.
@@ -73,9 +74,10 @@ public class SpecialDaysReminderAdapter extends ArrayAdapter<SpecialDaysReminder
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     Long triggerAtMillis = Utility.getDurationInMillis(specialDaysReminder.getDate(), specialDaysReminder.getTime());
-                    AlarmHelper.setAlarm(context, specialDaysReminder.getId(), triggerAtMillis, true, specialDaysReminder.getLabel());
+                    NotificationHelper.createNotification(context, triggerAtMillis, specialDaysReminder.getLabel(), MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 } else {
-                    AlarmHelper.cancelAlarm(context, specialDaysReminder.getId());
+                    Long triggerAtMillis = Utility.getDurationInMillis(specialDaysReminder.getDate(), specialDaysReminder.getTime());
+                    NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 }
             }
         });
