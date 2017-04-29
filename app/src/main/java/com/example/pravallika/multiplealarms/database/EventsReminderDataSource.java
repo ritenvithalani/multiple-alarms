@@ -36,18 +36,18 @@ public class EventsReminderDataSource {
     }
 
     public List<EventsReminder> retrieveEventReminders() {
-        String query = "SELECT * FROM " + MultipleAlarmContract.EventsReminderContract.TABLE_NAME;
+        String query = "SELECT * FROM " + MainContract.EventsReminderContract.TABLE_NAME;
         Cursor cursor = database.rawQuery(query, null);
 
         List<EventsReminder> eventReminderList = new ArrayList<EventsReminder>();
         if (cursor.moveToFirst()) {
             do {
-                int idIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract._ID);
-                int labelIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL);
-                int dateIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE);
-                int timeIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME);
-                int locationIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION);
-                int activeIndex = cursor.getColumnIndex(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE);
+                int idIndex = cursor.getColumnIndex(MainContract.EventsReminderContract._ID);
+                int labelIndex = cursor.getColumnIndex(MainContract.EventsReminderContract.COLUMN_NAME_LABEL);
+                int dateIndex = cursor.getColumnIndex(MainContract.EventsReminderContract.COLUMN_NAME_DATE);
+                int timeIndex = cursor.getColumnIndex(MainContract.EventsReminderContract.COLUMN_NAME_TIME);
+                int locationIndex = cursor.getColumnIndex(MainContract.EventsReminderContract.COLUMN_NAME_LOCATION);
+                int activeIndex = cursor.getColumnIndex(MainContract.EventsReminderContract.COLUMN_NAME_ACTIVE);
 
                 Long id = cursor.getLong(idIndex);
                 String label = cursor.getString(labelIndex);
@@ -80,13 +80,13 @@ public class EventsReminderDataSource {
         try {
             ContentValues initialValues = new ContentValues();
 
-            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
-            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
-            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
-            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
-            initialValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
+            initialValues.put(MainContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
+            initialValues.put(MainContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
+            initialValues.put(MainContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
+            initialValues.put(MainContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
+            initialValues.put(MainContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
 
-            insertedRowId = database.insert(MultipleAlarmContract.EventsReminderContract.TABLE_NAME, null, initialValues);
+            insertedRowId = database.insert(MainContract.EventsReminderContract.TABLE_NAME, null, initialValues);
         } catch (Exception e) {
             //Do nothing -will return false if there is an exception
         }
@@ -99,14 +99,14 @@ public class EventsReminderDataSource {
             Long rowId = (long) eventsReminder.getId();
             ContentValues updateValues = new ContentValues();
 
-            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
-            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
-            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
-            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
-            updateValues.put(MultipleAlarmContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
+            updateValues.put(MainContract.EventsReminderContract.COLUMN_NAME_LABEL, eventsReminder.getLabel());
+            updateValues.put(MainContract.EventsReminderContract.COLUMN_NAME_LOCATION, eventsReminder.getLocation());
+            updateValues.put(MainContract.EventsReminderContract.COLUMN_NAME_DATE, eventsReminder.getDate());
+            updateValues.put(MainContract.EventsReminderContract.COLUMN_NAME_TIME, eventsReminder.getTime());
+            updateValues.put(MainContract.EventsReminderContract.COLUMN_NAME_ACTIVE, eventsReminder.getActive());
 
-            didSucceed = database.update(MultipleAlarmContract.EventsReminderContract.TABLE_NAME, updateValues,
-                    MultipleAlarmContract.EventsReminderContract._ID + "=" + rowId, null) > 0;
+            didSucceed = database.update(MainContract.EventsReminderContract.TABLE_NAME, updateValues,
+                    MainContract.EventsReminderContract._ID + "=" + rowId, null) > 0;
         } catch (Exception e) {
             //Do nothing -will return false if there is an exception
         }
@@ -116,8 +116,8 @@ public class EventsReminderDataSource {
     public boolean deleteEventsReminder(Long id) {
         boolean didDelete = false;
         try {
-            didDelete = database.delete(MultipleAlarmContract.EventsReminderContract.TABLE_NAME,
-                    MultipleAlarmContract.EventsReminderContract._ID + "=" + id, null) > 0;
+            didDelete = database.delete(MainContract.EventsReminderContract.TABLE_NAME,
+                    MainContract.EventsReminderContract._ID + "=" + id, null) > 0;
         } catch (Exception e) {
             //Do nothing -return value already set to false
         }

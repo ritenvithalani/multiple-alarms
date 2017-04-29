@@ -36,6 +36,12 @@
         <activity
             android:name=".activities.AddAlarmActivity"
             android:label="@string/label_set_alarm" />
+        <activity
+            android:name=".activities.MultipleAlarmActivity"
+            android:label="@string/label_multiple_alarm_list" />
+        <activity
+            android:name=".activities.AddMultipleAlarmActivity"
+            android:label="@string/label_set_multiple_alarm" />
 
         <receiver android:name=".receivers.AlarmReceiver" />
         <receiver android:name=".receivers.SplReminderNotificationReceiver">
@@ -48,7 +54,6 @@
             android:name=".services.RingtonePlayingService"
             android:enabled="true" />
 
-        <activity android:name=".activities.MultipleAlarmActivity"></activity>
     </application>
 
 </manifest>

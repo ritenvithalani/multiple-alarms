@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_multiple_alarm"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.pravallika.multiplealarms.activities.AddMultipleAlarmActivity">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/large">
+
+            <!-- Dummy item to prevent auto focus-->
+            <LinearLayout
+                android:layout_width="0px"
+                android:layout_height="0px"
+                android:focusable="true"
+                android:focusableInTouchMode="true" />
+
+            <TextView
+                android:id="@+id/tv_multiple_alarm_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/clock_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/large"
+                android:background="@drawable/ic_action_access_alarm"
+                android:backgroundTint="@color/colorSecondaryText"
+                android:padding="@dimen/large" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/clock_icon"
+                android:layout_toRightOf="@+id/clock_icon"
+                android:text="Time"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/from_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginRight="@dimen/large"
+                android:layout_marginTop="@dimen/large"
+                android:text="From"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tv_multiple_alarm_from_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_time"
+                android:layout_marginTop="@dimen/large"
+                android:layout_toEndOf="@+id/from_time"
+                android:layout_toRightOf="@+id/from_time"
+                android:text="@string/setTime"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/to_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/from_time"
+                android:layout_marginRight="@dimen/large"
+                android:layout_marginTop="@dimen/medium"
+                android:text="To"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tv_multiple_alarm_to_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_multiple_alarm_from_time"
+                android:layout_below="@+id/tv_multiple_alarm_from_time"
+                android:layout_marginTop="@dimen/medium"
+                android:layout_toEndOf="@+id/to_time"
+                android:layout_toRightOf="@+id/to_time"
+                android:text="@string/setTime"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <ImageView
+                android:id="@+id/calendar_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/to_time"
+                android:layout_marginRight="@dimen/large"
+                android:layout_marginTop="@dimen/xlarge"
+                android:background="@drawable/ic_action_calendar"
+                android:backgroundTint="@color/colorSecondaryText"
+                android:padding="@dimen/large" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_multiple_alarm_to_time"
+                android:layout_marginTop="@dimen/xlarge"
+                android:layout_toEndOf="@+id/calendar_icon"
+                android:layout_toRightOf="@+id/calendar_icon"
+                android:text="Date"
+                android:textAppearance="?android:textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/from_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_marginRight="@dimen/large"
+                android:layout_marginTop="@dimen/large"
+                android:text="From"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tv_multiple_alarm_from_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_date"
+                android:layout_marginTop="@dimen/large"
+                android:layout_toEndOf="@+id/from_date"
+                android:layout_toRightOf="@+id/from_date"
+                android:text="Set Date"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/to_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/from_date"
+                android:layout_marginRight="@dimen/large"
+                android:layout_marginTop="@dimen/medium"
+                android:text="To"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tv_multiple_alarm_to_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/tv_multiple_alarm_from_time"
+                android:layout_below="@+id/tv_multiple_alarm_from_date"
+                android:layout_marginTop="@dimen/medium"
+                android:layout_toEndOf="@+id/to_date"
+                android:layout_toRightOf="@+id/to_date"
+                android:text="Set Date"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <LinearLayout
+                android:id="@+id/ll_multiple_alarm_days"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/to_date"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/xlarge"
+                android:layout_marginTop="@dimen/xlarge"
+                android:orientation="horizontal">
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_sunday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/sunday"
+                    android:textOff="@string/sunday"
+                    android:textOn="@string/sunday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_monday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/monday"
+                    android:textOff="@string/monday"
+                    android:textOn="@string/monday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_tuesday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/tuesday"
+                    android:textOff="@string/tuesday"
+                    android:textOn="@string/tuesday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_wednesday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/Wednesday"
+                    android:textOff="@string/Wednesday"
+                    android:textOn="@string/Wednesday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_thursday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/thursday"
+                    android:textOff="@string/thursday"
+                    android:textOn="@string/thursday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_friday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/Friday"
+                    android:textOff="@string/Friday"
+                    android:textOn="@string/Friday" />
+
+                <ToggleButton
+                    android:id="@+id/tb_ma_saturday"
+                    android:layout_width="48dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_inactive"
+                    android:text="@string/saturday"
+                    android:textOff="@string/saturday"
+                    android:textOn="@string/saturday" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/repeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/et_multiple_alarms_repeat"
+                android:layout_below="@id/ll_multiple_alarm_days"
+                android:layout_marginRight="@dimen/medium"
+                android:text="Repeat Every"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/et_multiple_alarms_repeat"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_multiple_alarm_days"
+                android:layout_toEndOf="@+id/repeat"
+                android:layout_toRightOf="@+id/repeat"
+                android:hint="@string/RepetitionAlarmHint"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/tv_mins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/et_multiple_alarms_repeat"
+                android:layout_below="@id/ll_multiple_alarm_days"
+                android:layout_toRightOf="@id/et_multiple_alarms_repeat"
+                android:text="min(s)"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <LinearLayout
+                android:id="@+id/linear_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repeat"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/xlarge"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/label_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/medium"
+                    android:background="@drawable/ic_action_border_color"
+                    android:backgroundTint="@color/colorSecondaryText"
+                    android:padding="@dimen/large" />
+
+                <EditText
+                    android:id="@+id/et_multiple_alarm_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/MultipleAlarmHint"
+                    android:inputType="textShortMessage"
+                    android:textAppearance="?android:textAppearanceMedium" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_set_multiple_alarm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear_layout2"
+                android:layout_marginTop="@dimen/large"
+                android:background="@drawable/rectangle_active"
+                android:text="@string/SetAlarm"
+                android:textColor="@color/colorIcons" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

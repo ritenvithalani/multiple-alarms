@@ -37,17 +37,17 @@ public class AlarmDataSource {
 
 
     public List<Alarm> retrieveAlarms() {
-        String query = "SELECT * FROM " + MultipleAlarmContract.AlarmContract.TABLE_NAME;
+        String query = "SELECT * FROM " + MainContract.AlarmContract.TABLE_NAME;
         Cursor cursor = database.rawQuery(query, null);
 
         List<Alarm> alarmList = new ArrayList<Alarm>();
         if (cursor.moveToFirst()) {
             do {
-                int idIndex = cursor.getColumnIndex(MultipleAlarmContract.AlarmContract._ID);
-                int labelIndex = cursor.getColumnIndex(MultipleAlarmContract.AlarmContract.COLUMN_NAME_LABEL);
-                int daysIndex = cursor.getColumnIndex(MultipleAlarmContract.AlarmContract.COLUMN_NAME_DAYS);
-                int timeIndex = cursor.getColumnIndex(MultipleAlarmContract.AlarmContract.COLUMN_NAME_TIME);
-                int activeIndex = cursor.getColumnIndex(MultipleAlarmContract.AlarmContract.COLUMN_NAME_ACTIVE);
+                int idIndex = cursor.getColumnIndex(MainContract.AlarmContract._ID);
+                int labelIndex = cursor.getColumnIndex(MainContract.AlarmContract.COLUMN_NAME_LABEL);
+                int daysIndex = cursor.getColumnIndex(MainContract.AlarmContract.COLUMN_NAME_DAYS);
+                int timeIndex = cursor.getColumnIndex(MainContract.AlarmContract.COLUMN_NAME_TIME);
+                int activeIndex = cursor.getColumnIndex(MainContract.AlarmContract.COLUMN_NAME_ACTIVE);
 
                 Long id = cursor.getLong(idIndex);
                 String label = cursor.getString(labelIndex);
@@ -79,13 +79,13 @@ public class AlarmDataSource {
             Long rowId = (long) alarm.getId();
             ContentValues updateValues = new ContentValues();
 
-            updateValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_LABEL, alarm.getLabel());
-            updateValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_DAYS, alarm.getSelectedDays());
-            updateValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_TIME, alarm.getTime());
-            updateValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_ACTIVE, alarm.getActive());
+            updateValues.put(MainContract.AlarmContract.COLUMN_NAME_LABEL, alarm.getLabel());
+            updateValues.put(MainContract.AlarmContract.COLUMN_NAME_DAYS, alarm.getSelectedDays());
+            updateValues.put(MainContract.AlarmContract.COLUMN_NAME_TIME, alarm.getTime());
+            updateValues.put(MainContract.AlarmContract.COLUMN_NAME_ACTIVE, alarm.getActive());
 
-            didSucceed = database.update(MultipleAlarmContract.AlarmContract.TABLE_NAME, updateValues,
-                    MultipleAlarmContract.AlarmContract._ID + "=" + rowId, null) > 0;
+            didSucceed = database.update(MainContract.AlarmContract.TABLE_NAME, updateValues,
+                    MainContract.AlarmContract._ID + "=" + rowId, null) > 0;
         } catch (Exception e) {
             //Do nothing -will return false if there is an exception
         }
@@ -95,8 +95,8 @@ public class AlarmDataSource {
     public boolean deleteAlarm(Long id) {
         boolean didDelete = false;
         try {
-            didDelete = database.delete(MultipleAlarmContract.AlarmContract.TABLE_NAME,
-                    MultipleAlarmContract.AlarmContract._ID + "=" + id, null) > 0;
+            didDelete = database.delete(MainContract.AlarmContract.TABLE_NAME,
+                    MainContract.AlarmContract._ID + "=" + id, null) > 0;
         } catch (Exception e) {
             //Do nothing -return value already set to false
         }
@@ -109,12 +109,12 @@ public class AlarmDataSource {
         try {
             ContentValues initialValues = new ContentValues();
 
-            initialValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_LABEL, currentAlarm.getLabel());
-            initialValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_DAYS, currentAlarm.getSelectedDays());
-            initialValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_TIME, currentAlarm.getTime());
-            initialValues.put(MultipleAlarmContract.AlarmContract.COLUMN_NAME_ACTIVE, currentAlarm.getActive());
+            initialValues.put(MainContract.AlarmContract.COLUMN_NAME_LABEL, currentAlarm.getLabel());
+            initialValues.put(MainContract.AlarmContract.COLUMN_NAME_DAYS, currentAlarm.getSelectedDays());
+            initialValues.put(MainContract.AlarmContract.COLUMN_NAME_TIME, currentAlarm.getTime());
+            initialValues.put(MainContract.AlarmContract.COLUMN_NAME_ACTIVE, currentAlarm.getActive());
 
-            insertedRowId = database.insert(MultipleAlarmContract.AlarmContract.TABLE_NAME, null, initialValues);
+            insertedRowId = database.insert(MainContract.AlarmContract.TABLE_NAME, null, initialValues);
         } catch (Exception e) {
             //Do nothing -will return false if there is an exception
         }

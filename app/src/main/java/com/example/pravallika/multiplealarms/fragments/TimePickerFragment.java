@@ -43,6 +43,13 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         } else if (null != this.getArguments() && "alarmTimePicker".equals(this.getArguments().getString("alarmTimePicker"))) {
             TextView txtView = (TextView) getActivity().findViewById(R.id.set_time);
             txtView.setText(displayTime);
+        } else if (null != this.getArguments() && "maFromTimePicker".equals(this.getArguments().getString("maFromTimePicker"))) {
+            TextView txtView = (TextView) getActivity().findViewById(R.id.tv_multiple_alarm_from_time);
+            txtView.setText(displayTime);
+        } else if (null != this.getArguments() && "maToTimePicker".equals(this.getArguments().getString("maToTimePicker"))) {
+            TextView txtView = (TextView) getActivity().findViewById(R.id.tv_multiple_alarm_to_time);
+            txtView.setText(displayTime);
         }
+
     }
 }

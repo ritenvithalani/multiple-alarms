@@ -12,9 +12,11 @@ import android.widget.Toast;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.Alarm;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
+import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
 import com.example.pravallika.multiplealarms.database.AlarmDataSource;
 import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
+import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
 
 import java.util.ArrayList;
@@ -106,6 +108,16 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
             try {
                 dataSource.openWritableDatabase();
                 dataSource.deleteAlarm(((Alarm) item).getId());
+                dataSource.close();
+            } catch (Exception e) {
+                Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+            }
+        } else if (item instanceof MultipleAlarm) {
+            MultipleAlarmDataSource dataSource = new MultipleAlarmDataSource(context);
+            try {
+                dataSource.openWritableDatabase();
+                dataSource.deleteMultipleAlarm(((MultipleAlarm) item).getId());
                 dataSource.close();
             } catch (Exception e) {
                 Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();

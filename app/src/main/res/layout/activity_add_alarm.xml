@@ -17,7 +17,7 @@
         android:visibility="gone" />
 
     <LinearLayout
-        android:id="@+id/setAlarm"
+        android:id="@+id/alarm_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -43,25 +43,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linear1"
+        android:id="@+id/ll_alarm_days"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/setAlarm"
+        android:layout_below="@+id/alarm_time"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <ToggleButton
-            android:id="@+id/sunday"
+            android:id="@+id/tb_ma_sunday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/sunday"
-            android:textOff="S" />
+            android:textOff="@string/sunday"
+            android:textOn="@string/sunday" />
 
         <ToggleButton
-            android:id="@+id/monday"
+            android:id="@+id/tb_ma_monday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -69,10 +70,11 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/monday"
-            android:textOff="M" />
+            android:textOff="@string/monday"
+            android:textOn="@string/monday" />
 
         <ToggleButton
-            android:id="@+id/tuesday"
+            android:id="@+id/tb_ma_tuesday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -80,10 +82,11 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/tuesday"
-            android:textOff="T" />
+            android:textOff="@string/tuesday"
+            android:textOn="@string/tuesday" />
 
         <ToggleButton
-            android:id="@+id/wednesday"
+            android:id="@+id/tb_ma_wednesday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -91,10 +94,11 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/Wednesday"
-            android:textOff="W" />
+            android:textOff="@string/Wednesday"
+            android:textOn="@string/Wednesday" />
 
         <ToggleButton
-            android:id="@+id/thursday"
+            android:id="@+id/tb_ma_thursday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -102,10 +106,11 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/thursday"
-            android:textOff="T" />
+            android:textOff="@string/thursday"
+            android:textOn="@string/thursday" />
 
         <ToggleButton
-            android:id="@+id/friday"
+            android:id="@+id/tb_ma_friday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -113,10 +118,11 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/Friday"
-            android:textOff="F" />
+            android:textOff="@string/Friday"
+            android:textOn="@string/Friday" />
 
         <ToggleButton
-            android:id="@+id/saturday"
+            android:id="@+id/tb_ma_saturday"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -124,14 +130,15 @@
             android:layout_weight="1"
             android:background="@drawable/rectangle_inactive"
             android:text="@string/saturday"
-            android:textOff="S" />
+            android:textOff="@string/saturday"
+            android:textOn="@string/saturday" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linear1"
+        android:layout_below="@+id/ll_alarm_days"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
@@ -146,7 +153,7 @@
             android:padding="@dimen/activity_vertical_margin" />
 
         <EditText
-            android:id="@+id/label"
+            android:id="@+id/et_alarm_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/AlarmHint"

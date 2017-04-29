@@ -89,16 +89,16 @@ public class RingtonePlayingService extends Service {
 
         notificationId = (int) System.currentTimeMillis();
 
-        //Intent buttonIntent = new Intent("spl_rem_notif_off_click");
-        //buttonIntent.putExtra("id", notificationId);
-        //PendingIntent buttonPendingEvent = PendingIntent.getBroadcast(getApplicationContext(), notificationId,buttonIntent,0);
+        /*Intent buttonIntent = new Intent("spl_rem_notif_off_click");
+        buttonIntent.putExtra("id", notificationId);
+        PendingIntent buttonPendingEvent = PendingIntent.getBroadcast(getApplicationContext(), notificationId,buttonIntent,0);
 
-        //remoteViews.setOnClickPendingIntent(R.id.ll_close_notif, buttonPendingEvent);
+        remoteViews.setOnClickPendingIntent(R.id.tv_spl_rem_notif_view, buttonPendingEvent);*/
 
         Intent notificationIntent = new Intent(getApplicationContext(), SpecialDaysReminderFragment.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, 0);
 
-        builder.setSmallIcon(R.mipmap.ic_launcher)
+        builder.setSmallIcon(R.drawable.ic_action_access_alarm)
                 .setAutoCancel(true)
                 .setCustomBigContentView(remoteViews)
                 .setContentIntent(pendingIntent);

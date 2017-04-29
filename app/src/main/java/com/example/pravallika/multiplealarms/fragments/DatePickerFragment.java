@@ -40,6 +40,12 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
         } else if(null!= this.getArguments() && "eventsDatePicker".equals(this.getArguments().getString("eventsDatePicker"))) {
             TextView txtView = (TextView) getActivity().findViewById(R.id.tv_events_set_date);
             txtView.setText(text);
+        } else if (null != this.getArguments() && "maFromDatePicker".equals(this.getArguments().getString("maFromDatePicker"))) {
+            TextView txtView = (TextView) getActivity().findViewById(R.id.tv_multiple_alarm_from_date);
+            txtView.setText(text);
+        } else if (null != this.getArguments() && "maToDatePicker".equals(this.getArguments().getString("maToDatePicker"))) {
+            TextView txtView = (TextView) getActivity().findViewById(R.id.tv_multiple_alarm_to_date);
+            txtView.setText(text);
         }
     }
 }

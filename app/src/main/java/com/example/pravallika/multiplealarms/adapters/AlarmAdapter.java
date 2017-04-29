@@ -11,7 +11,10 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.Alarm;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
 import com.example.pravallika.multiplealarms.helpers.Utility;
+
+import static com.example.pravallika.multiplealarms.activities.AddAlarmActivity.DAY_OF_WEEK_SEPERATOR;
 
 /**
  * Created by RitenVithlani on 4/26/17.
@@ -39,7 +42,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         TextView time = (TextView) listItemView.findViewById(R.id.tv_alarm_time);
         TextView label = (TextView) listItemView.findViewById(R.id.tv_alarm_label);
         TextView selectedDays = (TextView) listItemView.findViewById(R.id.tv_alarm_selected_days);
-        Switch alarmToggleSwitch = (Switch) listItemView.findViewById(R.id.alarm_toggle_switch);
+        Switch alarmToggleSwitch = (Switch) listItemView.findViewById(R.id.multiple_alarm_toggle_switch);
 
         id.setText(alarm.getId() + "");
         String formattedTime = Utility.formatMinute(alarm.getTime());
@@ -62,12 +65,15 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         alarmToggleSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                /*if (isChecked) {
-                    Long triggerAtMillis = Utility.getDurationInMillis(alarm.getDate(), alarm.getTime());
-                    AlarmHelper.setAlarm(context, alarm.getId(), triggerAtMillis, true, alarm.getLabel());
+                if (isChecked) {
+                    for (String dayOfWeek : alarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
+                        String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, alarm.getTime());
+                        Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, alarm.getTime());
+                        AlarmHelper.setAlarm(context, alarm.getId(), triggerAtMillis, false, "");
+                    }
                 } else {
                     AlarmHelper.cancelAlarm(context, alarm.getId());
-                }*/
+                }
             }
         });
 

@@ -16,8 +16,7 @@
         android:textSize="@dimen/medium_text"
         android:textStyle="italic" />
 
-    <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ListView
         android:id="@+id/alarm_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

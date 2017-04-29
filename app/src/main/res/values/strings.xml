@@ -16,7 +16,7 @@
     <string name="saturday">S</string>
     <string name="AlarmHint">Alarm Label eg. Wake Me Up</string>
     <string name="MultipleAlarmHint">Alarm Label eg. Meeting</string>
-    <string name="RepetitionAlarmHint">Repetition time eg. 30 min</string>
+    <string name="RepetitionAlarmHint">eg. 30 min</string>
     <string name="SetAlarm">Set Alarm</string>
 
 
@@ -35,8 +35,11 @@
     <string name="label_add_spl_reminder">Add Special Days Reminder</string>
     <string name="label_add_events_reminder">Add Events Reminder</string>
     <string name="label_set_alarm">Set Alarm</string>
+    <string name="label_set_multiple_alarm">Set Multiple Alarm</string>
     <string name="label_alarm_list">Alarm List</string>
+    <string name="label_multiple_alarm_list">Multiple Alarm List</string>
     <string name="spl_rem_notif_title">Reminder!!!</string>
     <string name="turn_off">Turn off</string>
+    <string name="txt_to">to</string>
 
 </resources>
