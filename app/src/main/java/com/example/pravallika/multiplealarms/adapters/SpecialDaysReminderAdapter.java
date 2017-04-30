@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
+import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
 import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
@@ -79,10 +80,32 @@ public class SpecialDaysReminderAdapter extends ArrayAdapter<SpecialDaysReminder
                     Long triggerAtMillis = Utility.getDurationInMillis(specialDaysReminder.getDate(), specialDaysReminder.getTime());
                     NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 }
+
+                specialDaysReminder.setActive(isChecked);
+                saveSplRemToDB(specialDaysReminder);
             }
         });
 
         return listItemView;
     }
 
+    private void saveSplRemToDB(SpecialDaysReminder currentSpecialDaysReminder) {
+        boolean wasSuccessful = false;
+        SpecialDaysReminderDataSource dataSource = new SpecialDaysReminderDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+
+            if (currentSpecialDaysReminder.getId() == -1) {
+                Long newId = dataSource.insertSplDaysReminder(currentSpecialDaysReminder);
+                wasSuccessful = newId > 0;
+                currentSpecialDaysReminder.setId(newId);
+            } else {
+                wasSuccessful = dataSource.updateSplDaysReminder(currentSpecialDaysReminder);
+            }
+            dataSource.close();
+        } catch (Exception e) {
+            wasSuccessful = false;
+            e.printStackTrace();
+        }
+    }
 }

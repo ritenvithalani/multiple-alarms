@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
+import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
 import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
@@ -86,9 +87,33 @@ public class EventsReminderAdapter extends ArrayAdapter<EventsReminder> {
                     Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
                     NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
                 }
+
+                eventsReminder.setActive(isChecked);
+                saveEventsRemToDB(eventsReminder);
             }
         });
 
         return listItemView;
     }
+
+    private void saveEventsRemToDB(EventsReminder currentEventsReminder) {
+        boolean wasSuccessful = false;
+        EventsReminderDataSource dataSource = new EventsReminderDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+
+            if (currentEventsReminder.getId() == -1) {
+                Long newId = dataSource.insertEventsReminder(currentEventsReminder);
+                wasSuccessful = newId > 0;
+                currentEventsReminder.setId(newId);
+            } else {
+                wasSuccessful = dataSource.updateEventsReminder(currentEventsReminder);
+            }
+            dataSource.close();
+        } catch (Exception e) {
+            wasSuccessful = false;
+            e.printStackTrace();
+        }
+    }
+
 }

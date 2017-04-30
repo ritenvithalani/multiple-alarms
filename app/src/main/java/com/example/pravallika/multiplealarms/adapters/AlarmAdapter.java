@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.Alarm;
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
+import com.example.pravallika.multiplealarms.database.AlarmDataSource;
 import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
@@ -86,9 +87,32 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
                         AlarmHelper.cancelAlarm(context, requestCode);
                     }
                 }
+
+                alarm.setActive(isChecked);
+                saveAlarm(alarm);
             }
         });
 
         return listItemView;
+    }
+
+    private void saveAlarm(Alarm currentAlarm) {
+        boolean wasSuccessful = false;
+        AlarmDataSource dataSource = new AlarmDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+
+            if (currentAlarm.getId() == -1) {
+                Long newId = dataSource.insertAlarm(currentAlarm);
+                wasSuccessful = newId > 0;
+                currentAlarm.setId(newId);
+            } else {
+                wasSuccessful = dataSource.updateAlarm(currentAlarm);
+            }
+            dataSource.close();
+        } catch (Exception e) {
+            wasSuccessful = false;
+            e.printStackTrace();
+        }
     }
 }

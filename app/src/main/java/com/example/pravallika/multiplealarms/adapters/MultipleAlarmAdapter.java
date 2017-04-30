@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
+import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
 import static com.example.pravallika.multiplealarms.adapters.AlarmAdapter.COUNT_CHARS_ALL_DAYS;
@@ -99,9 +100,32 @@ public class MultipleAlarmAdapter extends ArrayAdapter<MultipleAlarm> {
                 } else {
                     AlarmHelper.cancelAlarm(context, multipleAlarm.getId());
                 }*/
+
+                multipleAlarm.setActive(isChecked);
+                saveAlarm(multipleAlarm);
             }
         });
 
         return listItemView;
+    }
+
+    private void saveAlarm(MultipleAlarm currentMultipleAlarm) {
+        boolean wasSuccessful = false;
+        MultipleAlarmDataSource dataSource = new MultipleAlarmDataSource(context);
+        try {
+            dataSource.openWritableDatabase();
+
+            if (currentMultipleAlarm.getId() == -1) {
+                Long newId = dataSource.insertMultipleAlarm(currentMultipleAlarm);
+                wasSuccessful = newId > 0;
+                currentMultipleAlarm.setId(newId);
+            } else {
+                wasSuccessful = dataSource.updateMultipleAlarm(currentMultipleAlarm);
+            }
+            dataSource.close();
+        } catch (Exception e) {
+            wasSuccessful = false;
+            e.printStackTrace();
+        }
     }
 }
