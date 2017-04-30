@@ -10,6 +10,10 @@
     <color name="grey_9">#999999</color>
     <color name="grey_a">#aaaaaa</color>
     <color name="grey_d">#dddddd</color>
+    <color name="grey_e">#eeeeee</color>
+    <color name="white">#ffffff</color>
+
+    <color name="activated">#E0E1EE</color>
 
     <color name="darkIcon">#333333</color>
     <color name="mediumLightIcon">#666666</color>

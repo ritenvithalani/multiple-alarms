@@ -16,8 +16,6 @@ import com.example.pravallika.multiplealarms.database.AlarmDataSource;
 import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
-import static com.example.pravallika.multiplealarms.activities.AddAlarmActivity.DAY_OF_WEEK_SEPERATOR;
-
 /**
  * Created by RitenVithlani on 4/26/17.
  */
@@ -74,13 +72,13 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    for (String dayOfWeek : alarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
+                    for (String dayOfWeek : alarm.getSelectedDays().split(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR)) {
                         String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, alarm.getTime());
                         Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, alarm.getTime());
                         AlarmHelper.setAlarm(context, triggerAtMillis, alarm.getLabel(), MultipleAlarmConstants.FeatureType.ALARM);
                     }
                 } else {
-                    for (String dayOfWeek : alarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
+                    for (String dayOfWeek : alarm.getSelectedDays().split(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR)) {
                         String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, alarm.getTime());
                         Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, alarm.getTime());
                         int requestCode = Utility.getUniqueRequestCode(triggerAtMillis, MultipleAlarmConstants.FeatureType.ALARM);

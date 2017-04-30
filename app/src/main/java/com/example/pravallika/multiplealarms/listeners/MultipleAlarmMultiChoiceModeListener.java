@@ -14,10 +14,14 @@ import com.example.pravallika.multiplealarms.beans.Alarm;
 import com.example.pravallika.multiplealarms.beans.EventsReminder;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
 import com.example.pravallika.multiplealarms.beans.SpecialDaysReminder;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.database.AlarmDataSource;
 import com.example.pravallika.multiplealarms.database.EventsReminderDataSource;
 import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.database.SpecialDaysReminderDataSource;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
+import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
+import com.example.pravallika.multiplealarms.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +96,7 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
         } else if (item instanceof MultipleAlarm) {
             deleteMultipleAlarm((MultipleAlarm) item);
         }
+
     }
 
     private void deleteMultipleAlarm(MultipleAlarm item) {
@@ -116,6 +121,12 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
             Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+        for (String dayOfWeek : item.getSelectedDays().split(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR)) {
+            String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, item.getTime());
+            Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, item.getTime());
+            int requestCode = Utility.getUniqueRequestCode(triggerAtMillis, MultipleAlarmConstants.FeatureType.ALARM);
+            AlarmHelper.cancelAlarm(context, requestCode);
+        }
     }
 
     private void deleteEventsReminder(EventsReminder item) {
@@ -128,6 +139,9 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
             Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+
+        Long triggerAtMillis = Utility.getDurationInMillis(item.getDate(), item.getTime());
+        NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
     }
 
     private void deleteSpecialDaysReminder(SpecialDaysReminder item) {
@@ -140,6 +154,9 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
             Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+
+        Long triggerAtMillis = Utility.getDurationInMillis(item.getDate(), item.getTime());
+        NotificationHelper.cancelNotification(context, triggerAtMillis, MultipleAlarmConstants.FeatureType.SPECIAL_REMINDER);
     }
 
     @Override

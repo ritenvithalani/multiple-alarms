@@ -4,6 +4,7 @@
     android:id="@+id/list_item_spl_days_rem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/backgrounds"
     android:descendantFocusability="blocksDescendants"
     android:padding="@dimen/large"
     tools:context="com.example.pravallika.multiplealarms.activities.MainActivity">

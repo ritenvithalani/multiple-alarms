@@ -22,7 +22,6 @@ import com.example.pravallika.multiplealarms.utils.Utility;
 import static com.example.pravallika.multiplealarms.R.id.set_time;
 
 public class AddAlarmActivity extends AppCompatActivity {
-    public static final String DAY_OF_WEEK_SEPERATOR = ", ";
     private static final String DEFAULT_ALARM_TEXT = "Set Time";
     String[] daysOfWeek = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     private Long DEFAULT_ID = -1l;
