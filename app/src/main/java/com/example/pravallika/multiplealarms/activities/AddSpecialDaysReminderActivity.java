@@ -108,7 +108,9 @@ public class AddSpecialDaysReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SpecialDaysReminder currentSpecialDaysReminder = extractCurrentSplReminder();
-                //validateInput();
+                if (null == currentSpecialDaysReminder) {
+                    return;
+                }
                 saveSplRemToDB(currentSpecialDaysReminder);
                 setNotificationForReminder(currentSpecialDaysReminder);
                 finish();
@@ -118,12 +120,7 @@ public class AddSpecialDaysReminderActivity extends AppCompatActivity {
 
     private void setNotificationForReminder(SpecialDaysReminder currentSpecialDaysReminder) {
         Long triggerAtMillis = Utility.getDurationInMillis(currentSpecialDaysReminder.getDate(), currentSpecialDaysReminder.getTime());
-
-        if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
-            NotificationHelper.createNotification(AddSpecialDaysReminderActivity.this, triggerAtMillis, currentSpecialDaysReminder.getLabel(), MultipleAlarmConstants.FeatureType.SPECIAL_REMINDER);
-        } else {
-            Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
-        }
+        NotificationHelper.createNotification(AddSpecialDaysReminderActivity.this, triggerAtMillis, currentSpecialDaysReminder.getLabel(), MultipleAlarmConstants.FeatureType.SPECIAL_REMINDER);
     }
 
     private void saveSplRemToDB(SpecialDaysReminder currentSpecialDaysReminder) {
@@ -153,11 +150,18 @@ public class AddSpecialDaysReminderActivity extends AppCompatActivity {
         TextView tvSplRemDate = (TextView) findViewById(R.id.tv_spl_rem_set_date);
         TextView tvSplRemTime = (TextView) findViewById(R.id.tv_spl_rem_set_time);
 
+        String date = DEFAULT_SPL_REM_DATE_TEXT.equals(tvSplRemDate.getText().toString()) ? Utility.today() : tvSplRemDate.getText().toString();
+        String time = DEFAULT_SPL_REM_TIME_TEXT.equals(tvSplRemTime.getText().toString()) ? Utility.now() : tvSplRemTime.getText().toString();
+
+        Long triggerAtMillis = Utility.getDurationInMillis(date, time);
+        if (triggerAtMillis < Calendar.getInstance().getTimeInMillis()) {
+            Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
         Long id = !"".equals(tvSplRemId.getText()) ? Long.parseLong(tvSplRemId.getText().toString()) : DEFAULT_ID;
         String label = null != etSplRemLabel.getText() ? etSplRemLabel.getText().toString() : "";
         String title = spSplRemTitle.getSelectedItem().toString();
-        String date = DEFAULT_SPL_REM_DATE_TEXT.equals(tvSplRemDate.getText().toString()) ? Utility.today() : tvSplRemDate.getText().toString();
-        String time = DEFAULT_SPL_REM_TIME_TEXT.equals(tvSplRemTime.getText().toString()) ? Utility.now() : tvSplRemTime.getText().toString();
 
         SpecialDaysReminder specialDaysReminder = new SpecialDaysReminder();
         specialDaysReminder.setId(id);
