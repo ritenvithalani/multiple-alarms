@@ -172,8 +172,8 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
         // Dates are not mandatory. So make sure both (from and to) dates are present. If one of the date is missing use todays date as a default value
         String selectedFromDate = Utility.today();
         String selectedToDate = Utility.today();
-        if (!DEFAULT_DATE_TEXT.equals(tvFromTime.getText().toString()) &&
-                !DEFAULT_DATE_TEXT.equals(tvToTime.getText().toString())) {
+        if (!DEFAULT_DATE_TEXT.equals(tvFromDate.getText().toString()) &&
+                !DEFAULT_DATE_TEXT.equals(tvToDate.getText().toString())) {
             selectedFromDate = tvFromDate.getText().toString();
             selectedToDate = tvToDate.getText().toString();
         }
@@ -198,7 +198,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
         boolean isInvalid = true;
         try {
             int repeat = Integer.parseInt(repeatStr);
-            if (repeat > 0 || repeat <= 1440) {
+            if (repeat > 0 && repeat <= 1440) {
                 isInvalid = false; // repeat is only valid if it is between (0, 1440]
             }
         } catch (NumberFormatException nfe) {

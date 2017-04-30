@@ -29,6 +29,9 @@ public class MultipleAlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multiple_alarm);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initializeFab();
         initializeMultipleAlarmList();
     }

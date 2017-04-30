@@ -76,9 +76,9 @@ public class Utility {
     // Returns next day in format MMM dd, yyyy
     public static String tomorrow() {
         final Calendar c = Calendar.getInstance();
+        c.add(Calendar.DAY_OF_YEAR, 1);
         int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
-        c.add(Calendar.DAY_OF_MONTH, 1);
         int day = c.get(Calendar.DAY_OF_MONTH);
 
         String tomorrow = months[month] + " " + day + ", " + year;

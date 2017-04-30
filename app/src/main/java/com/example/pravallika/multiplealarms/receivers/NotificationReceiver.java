@@ -47,6 +47,7 @@ public class NotificationReceiver extends BroadcastReceiver {
                         PendingIntent.FLAG_UPDATE_CURRENT
                 );
         mBuilder.setContentIntent(resultPendingIntent);
+
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // if request code is different then only new notification will be generated. If requestCode is same then new will overwride the old one

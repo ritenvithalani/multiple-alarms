@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.pravallika.multiplealarms.R;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
 
 /**
  * Created by RitenVithlani on 4/29/17.
@@ -25,7 +26,8 @@ public class ActiveAlarmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int requestCode = getIntent().getIntExtra("requestCode", 0);
-                //AlarmHelper.cancelAlarm();
+                AlarmHelper.cancelAlarm(getBaseContext(), requestCode);
+
                 //off switch
 
                 // return to the alarm activity

@@ -34,13 +34,23 @@
             android:label="@string/label_add_events_reminder" />
         <activity
             android:name=".activities.AlarmActivity"
-            android:label="@string/label_alarm_list" />
+            android:label="@string/label_alarm_list"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+        </activity>
         <activity
             android:name=".activities.AddAlarmActivity"
             android:label="@string/label_set_alarm" />
         <activity
             android:name=".activities.MultipleAlarmActivity"
-            android:label="@string/label_multiple_alarm_list" />
+            android:label="@string/label_multiple_alarm_list"
+            android:parentActivityName=".activities.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+        </activity>
         <activity
             android:name=".activities.AddMultipleAlarmActivity"
             android:label="@string/label_set_multiple_alarm" />

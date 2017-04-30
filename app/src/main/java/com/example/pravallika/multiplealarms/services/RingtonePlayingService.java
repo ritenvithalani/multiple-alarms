@@ -21,14 +21,15 @@ import com.example.pravallika.multiplealarms.fragments.SpecialDaysReminderFragme
  */
 
 public class RingtonePlayingService extends Service {
-    MediaPlayer player;
-    boolean isAlarmOn, isNotificationNeeded;
+    boolean isAlarmOn, isNotificationNeeded, isPlaying;
     String notificationMessage;
+    Uri notification;
+    private MediaPlayer player;
     private NotificationCompat.Builder builder;
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
-    private int DELAY_IN_MILLIS = 10 * 1000;
+    private int DELAY_IN_MILLIS = 120 * 1000;
 
     @Nullable
     @Override
@@ -38,12 +39,15 @@ public class RingtonePlayingService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
         isAlarmOn = intent.getBooleanExtra("isAlarmOn", false);
         isNotificationNeeded = intent.getBooleanExtra("isNotificationNeeded", false);
         notificationMessage = intent.getStringExtra("notificationMessage");
 
-        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        player = MediaPlayer.create(this, notification);
+        if (null == player) {
+            notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            player = MediaPlayer.create(this, notification);
+        }
 
         if (isAlarmOn && !player.isPlaying()) {
             player.setLooping(true);
@@ -60,7 +64,8 @@ public class RingtonePlayingService extends Service {
         } else if (!isAlarmOn && player.isPlaying()) {
             player.stop();
             player.reset();
-
+            player.release();
+            player = null;
             isAlarmOn = false;
         }
         return START_NOT_STICKY;
@@ -74,10 +79,13 @@ public class RingtonePlayingService extends Service {
                 if (player.isPlaying()) {
                     player.stop();
                     player.reset();
+                    player.release();
+                    player = null;
                 }
             }
         }, timeout);
     }
+
 
     private void createNotification() {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);

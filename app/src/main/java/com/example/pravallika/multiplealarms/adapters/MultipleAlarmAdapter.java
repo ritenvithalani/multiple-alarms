@@ -13,6 +13,8 @@ import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
+import static com.example.pravallika.multiplealarms.adapters.AlarmAdapter.COUNT_CHARS_ALL_DAYS;
+
 /**
  * Created by RitenVithlani on 4/26/17.
  */
@@ -59,7 +61,11 @@ public class MultipleAlarmAdapter extends ArrayAdapter<MultipleAlarm> {
         }
 
         if (null != multipleAlarm.getSelectedDays() && !"".equals(multipleAlarm.getSelectedDays())) {
-            selectedDays.setText(multipleAlarm.getSelectedDays());
+            if (multipleAlarm.getSelectedDays().length() == COUNT_CHARS_ALL_DAYS) {
+                selectedDays.setText("Everyday");
+            } else {
+                selectedDays.setText(multipleAlarm.getSelectedDays());
+            }
         } else {
             selectedDays.setVisibility(View.GONE);
         }

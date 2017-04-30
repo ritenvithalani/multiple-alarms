@@ -30,6 +30,8 @@ public class AlarmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         initializeFab();
         initializeAlarmList();
 

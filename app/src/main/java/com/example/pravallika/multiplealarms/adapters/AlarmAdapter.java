@@ -23,6 +23,8 @@ import static com.example.pravallika.multiplealarms.activities.AddAlarmActivity.
 
 public class AlarmAdapter extends ArrayAdapter<Alarm> {
 
+    // Total characters for Sun, Mon, Tue, ... Sat is 33
+    public static final int COUNT_CHARS_ALL_DAYS = 33;
     Context context;
 
     public AlarmAdapter(Context context) {
@@ -56,7 +58,7 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
         }
 
         if (null != alarm.getSelectedDays() && !"".equals(alarm.getSelectedDays())) {
-            if (alarm.getSelectedDays().length() == 7) {
+            if (alarm.getSelectedDays().length() == COUNT_CHARS_ALL_DAYS) {
                 selectedDays.setText("Everyday");
             } else {
                 selectedDays.setText(alarm.getSelectedDays());
@@ -77,7 +79,12 @@ public class AlarmAdapter extends ArrayAdapter<Alarm> {
                         AlarmHelper.setAlarm(context, triggerAtMillis, alarm.getLabel(), MultipleAlarmConstants.FeatureType.ALARM);
                     }
                 } else {
-                    AlarmHelper.cancelAlarm(context, alarm.getId());
+                    for (String dayOfWeek : alarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
+                        String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, alarm.getTime());
+                        Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, alarm.getTime());
+                        int requestCode = Utility.getUniqueRequestCode(triggerAtMillis, MultipleAlarmConstants.FeatureType.ALARM);
+                        AlarmHelper.cancelAlarm(context, requestCode);
+                    }
                 }
             }
         });

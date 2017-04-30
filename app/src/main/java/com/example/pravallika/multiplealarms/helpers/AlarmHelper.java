@@ -17,10 +17,8 @@ import static java.lang.Integer.MAX_VALUE;
 
 public class AlarmHelper {
 
-    public static void cancelAlarm(Context context, long cancelId) {
+    public static void cancelAlarm(Context context, int requestCode) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        int requestCode = AlarmHelper.getRequestCode(cancelId);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
         intent.putExtra("isAlarmOn", false);
@@ -35,17 +33,17 @@ public class AlarmHelper {
     }
 
     public static void setAlarm(Context context, long triggerTimeInMillis, String label, MultipleAlarmConstants.FeatureType featureType) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int requestCode = Utility.getUniqueRequestCode(triggerTimeInMillis, featureType);
 
         Intent intent = new Intent(context, AlarmReceiver.class);
-        intent.putExtra("isAlarmOn", true);
-        intent.putExtra("alarmLabel", label);
-        intent.putExtra("requestCode", requestCode);
+        intent.putExtra("isAlarmOn", true); // used to track the alarm state
+        intent.putExtra("alarmLabel", label); // Can used in the notification
+        intent.putExtra("requestCode", requestCode); // Will be used to cancel the alarm later in the flow
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
     }
 
