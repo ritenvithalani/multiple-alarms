@@ -84,7 +84,10 @@ public class AddEventsReminderActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EventsReminder currentEventsReminder = extractCurrentSplReminder();
-                //validateInput();
+                if (null == currentEventsReminder) {
+                    return;
+                }
+
                 saveEventsRemToDB(currentEventsReminder);
                 setNotificationForReminder(currentEventsReminder);
                 finish();
@@ -94,12 +97,7 @@ public class AddEventsReminderActivity extends AppCompatActivity {
 
     private void setNotificationForReminder(EventsReminder eventsReminder) {
         Long triggerAtMillis = Utility.getDurationInMillis(eventsReminder.getDate(), eventsReminder.getTime());
-
-        if (triggerAtMillis >= Calendar.getInstance().getTimeInMillis()) {
-            NotificationHelper.createNotification(AddEventsReminderActivity.this, triggerAtMillis, eventsReminder.getLabel(), MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
-        } else {
-            Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
-        }
+        NotificationHelper.createNotification(AddEventsReminderActivity.this, triggerAtMillis, eventsReminder.getLabel(), MultipleAlarmConstants.FeatureType.EVENT_REMINDER);
     }
 
     private EventsReminder extractCurrentSplReminder() {
@@ -109,11 +107,18 @@ public class AddEventsReminderActivity extends AppCompatActivity {
         TextView tvEventsRemDate = (TextView) findViewById(R.id.tv_events_set_date);
         TextView tvEventsRemTime = (TextView) findViewById(R.id.tv_events_set_time);
 
+        String date = DEFAULT_EVENTS_REM_DATE_TEXT.equals(tvEventsRemDate.getText().toString()) ? Utility.today() : tvEventsRemDate.getText().toString();
+        String time = DEFAULT_EVENTS_REM_TIME_TEXT.equals(tvEventsRemTime.getText().toString()) ? Utility.now() : tvEventsRemTime.getText().toString();
+
+        Long triggerAtMillis = Utility.getDurationInMillis(date, time);
+        if (triggerAtMillis < Calendar.getInstance().getTimeInMillis()) {
+            Toast.makeText(this, "Selected time period has already elapsed. Please select a future time", Toast.LENGTH_LONG).show();
+            return null;
+        }
+
         Long id = !"".equals(tvEventsRemId.getText()) ? Long.parseLong(tvEventsRemId.getText().toString()) : DEFAULT_ID;
         String label = null != etEventsRemLabel.getText() ? etEventsRemLabel.getText().toString() : "";
         String location = null != etEventsRemLocation.getText() ? etEventsRemLocation.getText().toString() : "";
-        String date = DEFAULT_EVENTS_REM_DATE_TEXT.equals(tvEventsRemDate.getText().toString()) ? Utility.today() : tvEventsRemDate.getText().toString();
-        String time = DEFAULT_EVENTS_REM_TIME_TEXT.equals(tvEventsRemTime.getText().toString()) ? Utility.now() : tvEventsRemTime.getText().toString();
 
         EventsReminder eventsReminder = new EventsReminder();
         eventsReminder.setId(id);
