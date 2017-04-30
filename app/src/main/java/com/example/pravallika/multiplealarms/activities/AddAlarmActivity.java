@@ -55,7 +55,7 @@ public class AddAlarmActivity extends AppCompatActivity {
     }
 
     private void setAlarm(Alarm currentAlarm) {
-        for (String dayOfWeek : currentAlarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
+        for (String dayOfWeek : currentAlarm.getSelectedDays().split(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR)) {
             String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, currentAlarm.getTime());
             Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, currentAlarm.getTime());
             AlarmHelper.setAlarm(AddAlarmActivity.this, triggerAtMillis, currentAlarm.getLabel(), MultipleAlarmConstants.FeatureType.ALARM);
@@ -150,7 +150,7 @@ public class AddAlarmActivity extends AppCompatActivity {
             if (view instanceof ToggleButton) {
                 ToggleButton day = (ToggleButton) view;
                 if (day.isChecked()) {
-                    selectedDays += daysOfWeek[i] + DAY_OF_WEEK_SEPERATOR;
+                    selectedDays += daysOfWeek[i] + MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR;
                     isDaySelected = true;
                 }
             }
