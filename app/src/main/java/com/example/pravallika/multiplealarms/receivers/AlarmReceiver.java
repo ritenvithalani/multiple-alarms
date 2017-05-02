@@ -28,7 +28,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         serviceIntent.putExtra("alarmLabel", alarmLabel);
         context.startService(serviceIntent);
 
-        Log.e("Label: " + alarmLabel + "request code receiver: ", requestCode + "");
+        Log.e("Label: " + alarmLabel + " request code receiver: ", requestCode + "");
 
         if (isAlarmOn) {
             Intent activeAlarmIntent = new Intent(context, ActiveAlarmActivity.class);

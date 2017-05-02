@@ -41,12 +41,10 @@ public class ActiveAlarmActivity extends AppCompatActivity {
                 if (featureId == MultipleAlarmConstants.FeatureType.ALARM.id()) {
                     Intent intent = new Intent(ActiveAlarmActivity.this, AlarmActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //intent.putExtra("turnOffSwitch", true);
                     startActivity(intent);
                 } else if (featureId == MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM.id()) {
                     Intent intent = new Intent(ActiveAlarmActivity.this, MultipleAlarmActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    //intent.putExtra("turnOffSwitch", true);
                     startActivity(intent);
                 } else {
                     Intent intent = new Intent(ActiveAlarmActivity.this, MainActivity.class);

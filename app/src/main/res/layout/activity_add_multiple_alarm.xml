@@ -274,6 +274,7 @@
                 android:layout_alignBaseline="@+id/et_multiple_alarms_repeat"
                 android:layout_below="@id/ll_multiple_alarm_days"
                 android:layout_toRightOf="@id/et_multiple_alarms_repeat"
+                android:inputType="number"
                 android:text="min(s)"
                 android:textAppearance="?android:textAppearanceMedium" />
 
