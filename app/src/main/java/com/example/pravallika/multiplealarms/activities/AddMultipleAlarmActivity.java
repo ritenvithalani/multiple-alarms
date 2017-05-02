@@ -94,8 +94,8 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                 fromDate.add(Calendar.MINUTE, fromTimeInMins);
 
                 for (int time = fromTimeInMins; time < toTimeInMins; time = time + repeatInterval) {
+                    fromDate.add(Calendar.MINUTE, repeatInterval);
                     if (time >= Utility.convertTimeInMins(Utility.now())) {
-                        fromDate.add(Calendar.MINUTE, repeatInterval);
                         Date d1 = fromDate.getTime();
                         Log.i("Label: " + currentMultipleAlarm.getLabel() + " from date values: ", d1.toString());
                         AlarmHelper.setAlarm(AddMultipleAlarmActivity.this, fromDate.getTimeInMillis(), currentMultipleAlarm.getLabel(), MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM);
