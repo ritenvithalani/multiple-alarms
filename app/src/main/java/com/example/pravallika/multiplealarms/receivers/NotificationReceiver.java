@@ -29,7 +29,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.drawable.ic_action_access_alarm)
+                        .setSmallIcon(R.drawable.ic_alarm_white_24dp)
                         .setContentTitle(notificationTitle)
                         .setContentText(notificationMessage)
                         .setDefaults(Notification.DEFAULT_ALL)
