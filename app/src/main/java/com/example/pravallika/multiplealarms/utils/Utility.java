@@ -205,4 +205,25 @@ public class Utility {
     public static int getUniqueRequestCode(Long triggerTimeInMillis, MultipleAlarmConstants.FeatureType featureType) {
         return (int) ((triggerTimeInMillis % MAX_VALUE) + featureType.id());
     }
+
+    // Return calendar instance of the given string date and time
+    public static Calendar convertToCalendarDate(String dateStr) {
+        SimpleDateFormat parser = new SimpleDateFormat(MultipleAlarmConstants.DATE_FORMAT);
+
+        Calendar calendar = Calendar.getInstance();
+        try {
+            Date date = parser.parse(dateStr);
+            calendar.setTime(date);
+        } catch (ParseException e) {
+            // Invalid date was entered
+        }
+        return calendar;
+    }
+
+    public static int convertTimeInMins(String timeStr) {
+        String[] time = timeStr.split(":");
+        int hours = Integer.parseInt(time[0]);
+        int min = Integer.parseInt(time[1]);
+        return hours * 60 + min;
+    }
 }

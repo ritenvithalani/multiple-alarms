@@ -3,6 +3,7 @@ package com.example.pravallika.multiplealarms.receivers;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.example.pravallika.multiplealarms.activities.ActiveAlarmActivity;
 import com.example.pravallika.multiplealarms.services.RingtonePlayingService;
@@ -17,20 +18,23 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
-
         boolean isAlarmOn = intent.getBooleanExtra("isAlarmOn", false);
         String alarmLabel = intent.getStringExtra("alarmLabel");
         int requestCode = intent.getIntExtra("requestCode", 0);
+        int featureId = intent.getIntExtra("featureId", 0);
 
+        Intent serviceIntent = new Intent(context, RingtonePlayingService.class);
         serviceIntent.putExtra("isAlarmOn", isAlarmOn);
         serviceIntent.putExtra("alarmLabel", alarmLabel);
         context.startService(serviceIntent);
 
+        Log.e("request code receiver", requestCode + "");
+
         if (isAlarmOn) {
             Intent activeAlarmIntent = new Intent(context, ActiveAlarmActivity.class);
             activeAlarmIntent.putExtra("requestCode", requestCode);
-            activeAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activeAlarmIntent.putExtra("featureId", featureId);
+            activeAlarmIntent.putExtra("alarmLabel", alarmLabel);
             context.startActivity(activeAlarmIntent);
         }
 

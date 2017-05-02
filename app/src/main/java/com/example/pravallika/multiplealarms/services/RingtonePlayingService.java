@@ -21,7 +21,7 @@ import com.example.pravallika.multiplealarms.fragments.SpecialDaysReminderFragme
  */
 
 public class RingtonePlayingService extends Service {
-    boolean isAlarmOn, isNotificationNeeded, isPlaying;
+    boolean isAlarmOn, isNotificationNeeded, isAlarmDismissed;
     String notificationMessage;
     Uri notification;
     private MediaPlayer player;
@@ -29,7 +29,7 @@ public class RingtonePlayingService extends Service {
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
-    private int DELAY_IN_MILLIS = 120 * 1000;
+    private int DELAY_IN_MILLIS = 5 * 1000;
 
     @Nullable
     @Override
@@ -49,19 +49,19 @@ public class RingtonePlayingService extends Service {
             player = MediaPlayer.create(this, notification);
         }
 
-        if (isAlarmOn && !player.isPlaying()) {
+        if (isAlarmOn && null != player && !player.isPlaying()) {
             player.setLooping(true);
             player.start();
 
             isAlarmOn = false;
 
             if (isNotificationNeeded) {
-                createNotification();
+                //createNotification();
             }
 
             stopPlayerAfter(DELAY_IN_MILLIS);
 
-        } else if (!isAlarmOn && player.isPlaying()) {
+        } else if (!isAlarmOn && null != player && player.isPlaying()) {
             player.stop();
             player.reset();
             player.release();
@@ -76,7 +76,7 @@ public class RingtonePlayingService extends Service {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (player.isPlaying()) {
+                if (null != player && player.isPlaying()) {
                     player.stop();
                     player.reset();
                     player.release();

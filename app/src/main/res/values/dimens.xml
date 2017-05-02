@@ -11,5 +11,6 @@
     <dimen name="medium">8dp</dimen>
     <dimen name="large">16dp</dimen>
     <dimen name="xlarge">24dp</dimen>
+    <dimen name="xxlarge">32dp</dimen>
 
 </resources>

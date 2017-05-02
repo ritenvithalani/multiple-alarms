@@ -1,11 +1,15 @@
 package com.example.pravallika.multiplealarms.activities;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,10 +20,16 @@ import android.widget.ToggleButton;
 
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.beans.MultipleAlarm;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
+import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
+import com.example.pravallika.multiplealarms.receivers.AlarmReceiver;
 import com.example.pravallika.multiplealarms.utils.Utility;
+
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.example.pravallika.multiplealarms.R.id.et_multiple_alarms_repeat;
 import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_from_date;
@@ -32,6 +42,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
     private static final String DEFAULT_TIME_TEXT = "Set Time";
     private static final String DEFAULT_DATE_TEXT = "Set Date";
     String[] daysOfWeek = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
     private Long DEFAULT_ID = -1l;
 
     @Override
@@ -61,17 +72,60 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                 saveAlarm(currentMultipleAlarm);
                 //set the actual currentMultipleAlarm
                 setMultipleAlarm(currentMultipleAlarm);
+                //setMultipleAlarmTest(currentMultipleAlarm);
                 finish();
             }
         });
     }
 
+    private void setMultipleAlarmTest(MultipleAlarm currentMultipleAlarm) {
+        for (int i = 1; i <= 10; i++) {
+
+            Intent intent = new Intent(this, AlarmReceiver.class);
+            intent.putExtra("isAlarmOn", true); // used to track the alarm state
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Log.i("i ", i + "");
+            AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (10000 * i), pendingIntent);
+        }
+    }
+
     private void setMultipleAlarm(MultipleAlarm currentMultipleAlarm) {
-        /*for (String dayOfWeek : currentMultipleAlarm.getSelectedDays().split(DAY_OF_WEEK_SEPERATOR)) {
-            String alarmDate = Utility.getDateFromDayOfWeek(dayOfWeek, currentMultipleAlarm.getTime());
-            Long triggerAtMillis = Utility.getDurationInMillis(alarmDate, currentMultipleAlarm.getTime());
-            AlarmHelper.setAlarm(AddMultipleAlarmActivity.this, currentMultipleAlarm.getId(), triggerAtMillis, false, "");
-        }*/
+        Calendar fromDate = Utility.convertToCalendarDate(currentMultipleAlarm.getFromDate());
+        Calendar toDate = Utility.convertToCalendarDate(currentMultipleAlarm.getToDate());
+        boolean isValid = false;
+        if (TextUtils.join(DAY_OF_WEEK_SEPERATOR, daysOfWeek).equals(currentMultipleAlarm.getSelectedDays())) {
+            isValid = true;
+        }
+
+        do {
+            int fromDateDayOfWeek = fromDate.get(Calendar.DAY_OF_WEEK);
+            // isValid is true when user does not select any days of week. If no days of week is selected then create alarm for everyday within the date range
+            // If user has selected the days of week then alarm should be triggered for that particular day in the given date range
+            if (isValid || currentMultipleAlarm.getSelectedDays().contains(daysOfWeek[fromDateDayOfWeek - 1])) {
+
+                // Add repeat interval to the from date such that it between start and end time
+                int fromTimeInMins = Utility.convertTimeInMins(currentMultipleAlarm.getFromTime());
+                int toTimeInMins = Utility.convertTimeInMins(currentMultipleAlarm.getToTime());
+                int repeatInterval = Integer.parseInt(currentMultipleAlarm.getRepeat());
+
+                fromDate.add(Calendar.MINUTE, fromTimeInMins);
+
+                for (int time = fromTimeInMins; time < toTimeInMins; time = time + repeatInterval) {
+                    if (time > Utility.convertTimeInMins(Utility.now())) {
+                        fromDate.add(Calendar.MINUTE, repeatInterval);
+                        Date d1 = fromDate.getTime();
+                        Log.i("from date values", d1.toString());
+                        AlarmHelper.setAlarm(AddMultipleAlarmActivity.this, fromDate.getTimeInMillis(), currentMultipleAlarm.getLabel(), MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM);
+                    }
+                }
+            }
+            // Increment the day
+            fromDate.add(Calendar.DAY_OF_YEAR, 1);
+        } while (fromDate.getTimeInMillis() < toDate.getTimeInMillis());
+
     }
 
     private void populateFormValues(Intent intent) {
@@ -153,6 +207,9 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                 DEFAULT_TIME_TEXT.equals(tvToTime.getText().toString())) {
             Toast.makeText(AddMultipleAlarmActivity.this, "Please select the time values for the alarm", Toast.LENGTH_LONG).show();
             return null;
+        } else if (Utility.convertTimeInMins(tvFromTime.getText().toString()) >= Utility.convertTimeInMins(tvToTime.getText().toString())) {
+            Toast.makeText(AddMultipleAlarmActivity.this, "To time cannot be greater than from time", Toast.LENGTH_LONG).show();
+            return null;
         } else if (null == etRepeat.getText() || "".equals(etRepeat.getText().toString())
                 || isInvalidRepeatValue(etRepeat.getText().toString())) {
             Toast.makeText(AddMultipleAlarmActivity.this, "Please enter a valid repeat value", Toast.LENGTH_LONG).show();
@@ -161,6 +218,12 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                 !DEFAULT_DATE_TEXT.equals(tvToDate.getText().toString()) &&
                 Utility.compareDate(tvFromDate.getText().toString(), tvToDate.getText().toString())) {
             Toast.makeText(AddMultipleAlarmActivity.this, "To date cannot be greater than from date", Toast.LENGTH_LONG).show();
+            return null;
+        } else if (!DEFAULT_DATE_TEXT.equals(tvFromDate.getText().toString()) &&
+                !DEFAULT_DATE_TEXT.equals(tvToDate.getText().toString()) &&
+                (Utility.compareDate(Utility.today(), tvFromDate.getText().toString()) ||
+                        Utility.compareDate(Utility.today(), tvToDate.getText().toString()))) {
+            Toast.makeText(AddMultipleAlarmActivity.this, "To and from date cannot be the past date", Toast.LENGTH_LONG).show();
             return null;
         }
 
