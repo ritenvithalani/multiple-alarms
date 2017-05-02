@@ -28,7 +28,7 @@ public class ActiveAlarmActivity extends AppCompatActivity {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.active_alarm_activity);
+        setContentView(R.layout.activity_active_alarm);
 
         String alarmLabel = getIntent().getStringExtra("alarmLabel");
         TextView tvAlarmLabel = (TextView) findViewById(R.id.tv_active_alarm_label);

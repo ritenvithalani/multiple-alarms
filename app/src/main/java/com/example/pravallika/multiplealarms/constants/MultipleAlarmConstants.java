@@ -12,7 +12,7 @@ public class MultipleAlarmConstants {
     public static final String DATE_FORMAT = "MMM dd, yyyy";
     public static final String DAY_OF_WEEK_SEPERATOR = ", ";
     public static final String[] DAYS_OF_WEEK = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-    public static final int SNOOZE_TIME_IN_MILLIS = 10 * 60 * 1000;
+    public static final int SNOOZE_TIME_IN_MILLIS =  60 * 1000;
     public static final int RINGTONE_DURATION_IN_MILLIS = 60 * 1000;
 
     public enum FeatureType {

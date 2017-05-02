@@ -3,13 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--<ImageView
-        android:id="@+id/iv_cancel_alarm"
-        android:layout_width="240dp"
-        android:layout_height="240dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/ic_alarm_off_black_24dp" />
--->
     <TextView
         android:id="@+id/tv_active_alarm_label"
         android:layout_width="wrap_content"
@@ -50,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_snooze_black_36dp"
-                android:backgroundTint="@color/lightIcon" />
+                android:backgroundTint="@color/mediumLightIcon" />
 
             <TextView
                 android:id="@+id/tvMLNotification"
@@ -58,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/medium"
                 android:text="Snooze"
-                android:textColor="@color/lightIcon"
+                android:textColor="@color/mediumLightIcon"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -76,14 +69,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_alarm_off_black_36dp"
-                android:backgroundTint="@color/lightIcon" />
+                android:backgroundTint="@color/mediumLightIcon" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/medium"
                 android:text="Dismiss"
-                android:textColor="@color/lightIcon"
+                android:textColor="@color/mediumLightIcon"
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
