@@ -1,6 +1,8 @@
 package com.example.pravallika.multiplealarms.listeners;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,8 @@ import com.example.pravallika.multiplealarms.helpers.NotificationHelper;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -109,6 +113,46 @@ public class MultipleAlarmMultiChoiceModeListener<ITEM_TYPE> implements AbsListV
             Toast.makeText(context, "Item could not be deleted", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+
+        cancelMultipleAlarm(item);
+    }
+
+    private void cancelMultipleAlarm(MultipleAlarm multipleAlarm) {
+        Calendar fromDate = Utility.convertToCalendarDate(multipleAlarm.getFromDate());
+        Calendar toDate = Utility.convertToCalendarDate(multipleAlarm.getToDate());
+        boolean isValid = false;
+        if (TextUtils.join(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR, MultipleAlarmConstants.DAYS_OF_WEEK).equals(multipleAlarm.getSelectedDays())) {
+            isValid = true;
+        }
+
+        do {
+            int fromDateDayOfWeek = fromDate.get(Calendar.DAY_OF_WEEK);
+            // isValid is true when user does not select any days of week. If no days of week is selected then create alarm for everyday within the date range
+            // If user has selected the days of week then alarm should be triggered for that particular day in the given date range
+            if (isValid || multipleAlarm.getSelectedDays().contains(MultipleAlarmConstants.DAYS_OF_WEEK[fromDateDayOfWeek - 1])) {
+
+                // Add repeat interval to the from date such that it between start and end time
+                int fromTimeInMins = Utility.convertTimeInMins(multipleAlarm.getFromTime());
+                int toTimeInMins = Utility.convertTimeInMins(multipleAlarm.getToTime());
+                int repeatInterval = Integer.parseInt(multipleAlarm.getRepeat());
+
+                fromDate.add(Calendar.MINUTE, fromTimeInMins);
+
+                for (int time = fromTimeInMins; time < toTimeInMins; time = time + repeatInterval) {
+                    if (time > Utility.convertTimeInMins(Utility.now())) {
+                        fromDate.add(Calendar.MINUTE, repeatInterval);
+                        Date d1 = fromDate.getTime();
+                        Log.i("from date values", d1.toString());
+                        AlarmHelper.setAlarm(context, fromDate.getTimeInMillis(), multipleAlarm.getLabel(), MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM);
+                        int requestCode = Utility.getUniqueRequestCode(fromDate.getTimeInMillis(), MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM);
+                        AlarmHelper.cancelAlarm(context, requestCode);
+                    }
+                }
+            }
+            // Increment the day
+            fromDate.add(Calendar.DAY_OF_YEAR, 1);
+        } while (fromDate.getTimeInMillis() < toDate.getTimeInMillis());
+
     }
 
     private void deleteAlarm(Alarm item) {

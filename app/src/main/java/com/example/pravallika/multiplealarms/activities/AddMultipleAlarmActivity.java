@@ -1,8 +1,5 @@
 package com.example.pravallika.multiplealarms.activities;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,7 +22,6 @@ import com.example.pravallika.multiplealarms.database.MultipleAlarmDataSource;
 import com.example.pravallika.multiplealarms.fragments.DatePickerFragment;
 import com.example.pravallika.multiplealarms.fragments.TimePickerFragment;
 import com.example.pravallika.multiplealarms.helpers.AlarmHelper;
-import com.example.pravallika.multiplealarms.receivers.AlarmReceiver;
 import com.example.pravallika.multiplealarms.utils.Utility;
 
 import java.util.Calendar;
@@ -36,12 +32,11 @@ import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_from_
 import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_from_time;
 import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_to_date;
 import static com.example.pravallika.multiplealarms.R.id.tv_multiple_alarm_to_time;
+import static com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR;
 
 public class AddMultipleAlarmActivity extends AppCompatActivity {
-    public static final String DAY_OF_WEEK_SEPERATOR = ", ";
     private static final String DEFAULT_TIME_TEXT = "Set Time";
     private static final String DEFAULT_DATE_TEXT = "Set Date";
-    String[] daysOfWeek = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
     private Long DEFAULT_ID = -1l;
 
@@ -72,31 +67,16 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                 saveAlarm(currentMultipleAlarm);
                 //set the actual currentMultipleAlarm
                 setMultipleAlarm(currentMultipleAlarm);
-                //setMultipleAlarmTest(currentMultipleAlarm);
                 finish();
             }
         });
-    }
-
-    private void setMultipleAlarmTest(MultipleAlarm currentMultipleAlarm) {
-        for (int i = 1; i <= 10; i++) {
-
-            Intent intent = new Intent(this, AlarmReceiver.class);
-            intent.putExtra("isAlarmOn", true); // used to track the alarm state
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, i,
-                    intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-            Log.i("i ", i + "");
-            AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + (10000 * i), pendingIntent);
-        }
     }
 
     private void setMultipleAlarm(MultipleAlarm currentMultipleAlarm) {
         Calendar fromDate = Utility.convertToCalendarDate(currentMultipleAlarm.getFromDate());
         Calendar toDate = Utility.convertToCalendarDate(currentMultipleAlarm.getToDate());
         boolean isValid = false;
-        if (TextUtils.join(DAY_OF_WEEK_SEPERATOR, daysOfWeek).equals(currentMultipleAlarm.getSelectedDays())) {
+        if (TextUtils.join(DAY_OF_WEEK_SEPERATOR, MultipleAlarmConstants.DAYS_OF_WEEK).equals(currentMultipleAlarm.getSelectedDays())) {
             isValid = true;
         }
 
@@ -104,7 +84,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
             int fromDateDayOfWeek = fromDate.get(Calendar.DAY_OF_WEEK);
             // isValid is true when user does not select any days of week. If no days of week is selected then create alarm for everyday within the date range
             // If user has selected the days of week then alarm should be triggered for that particular day in the given date range
-            if (isValid || currentMultipleAlarm.getSelectedDays().contains(daysOfWeek[fromDateDayOfWeek - 1])) {
+            if (isValid || currentMultipleAlarm.getSelectedDays().contains(MultipleAlarmConstants.DAYS_OF_WEEK[fromDateDayOfWeek - 1])) {
 
                 // Add repeat interval to the from date such that it between start and end time
                 int fromTimeInMins = Utility.convertTimeInMins(currentMultipleAlarm.getFromTime());
@@ -117,7 +97,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
                     if (time > Utility.convertTimeInMins(Utility.now())) {
                         fromDate.add(Calendar.MINUTE, repeatInterval);
                         Date d1 = fromDate.getTime();
-                        Log.i("from date values", d1.toString());
+                        Log.i("Label: " + currentMultipleAlarm.getLabel() + "from date values: ", d1.toString());
                         AlarmHelper.setAlarm(AddMultipleAlarmActivity.this, fromDate.getTimeInMillis(), currentMultipleAlarm.getLabel(), MultipleAlarmConstants.FeatureType.MULTIPLE_ALARM);
                     }
                 }
@@ -153,8 +133,8 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
         String daysList = multipleAlarm.getSelectedDays();
 
         boolean[] activeMapDaysOfWeek = new boolean[]{false, false, false, false, false, false, false};
-        for (int i = 0; i < daysOfWeek.length; i++) {
-            if (daysList.contains(daysOfWeek[i])) {
+        for (int i = 0; i < MultipleAlarmConstants.DAYS_OF_WEEK.length; i++) {
+            if (daysList.contains(MultipleAlarmConstants.DAYS_OF_WEEK[i])) {
                 activeMapDaysOfWeek[i] = true;
             }
         }
@@ -280,14 +260,14 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
             if (view instanceof ToggleButton) {
                 ToggleButton day = (ToggleButton) view;
                 if (day.isChecked()) {
-                    selectedDays += daysOfWeek[i] + DAY_OF_WEEK_SEPERATOR;
+                    selectedDays += MultipleAlarmConstants.DAYS_OF_WEEK[i] + MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR;
                     isDaySelected = true;
                 }
             }
         }
 
         if (!isDaySelected) {
-            selectedDays = TextUtils.join(DAY_OF_WEEK_SEPERATOR, daysOfWeek);
+            selectedDays = TextUtils.join(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR, MultipleAlarmConstants.DAYS_OF_WEEK);
         } else {
             selectedDays = selectedDays.substring(0, selectedDays.length() - 2);
         }

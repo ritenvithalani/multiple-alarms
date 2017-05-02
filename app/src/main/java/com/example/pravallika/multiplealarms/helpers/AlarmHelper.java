@@ -52,7 +52,7 @@ public class AlarmHelper {
         Calendar c1 = Calendar.getInstance();
         c1.setTimeInMillis(triggerTimeInMillis);
         Date d1 = c1.getTime();
-        Log.i("Trigger time ", d1.toString());
+        Log.i("Label: " + label + "Trigger time ", d1.toString());
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
     }

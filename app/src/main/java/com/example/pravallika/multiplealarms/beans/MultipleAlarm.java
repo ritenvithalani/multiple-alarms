@@ -88,5 +88,4 @@ public class MultipleAlarm implements Serializable {
     public void setActive(Boolean active) {
         this.active = active;
     }
-
 }

@@ -11,6 +11,7 @@ public class MultipleAlarmConstants {
     public static final String TIME_FORMAT = "HH:mm";
     public static final String DATE_FORMAT = "MMM dd, yyyy";
     public static final String DAY_OF_WEEK_SEPERATOR = ", ";
+    public static final String[] DAYS_OF_WEEK = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
     public enum FeatureType {
         ALARM(1, "Alarm"),

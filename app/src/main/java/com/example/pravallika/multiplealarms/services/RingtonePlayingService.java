@@ -29,7 +29,7 @@ public class RingtonePlayingService extends Service {
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
-    private int DELAY_IN_MILLIS = 5 * 1000;
+    private int DELAY_IN_MILLIS = 120 * 1000;
 
     @Nullable
     @Override
