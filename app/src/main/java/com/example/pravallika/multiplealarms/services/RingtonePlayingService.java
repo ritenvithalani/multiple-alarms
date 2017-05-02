@@ -13,11 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.example.pravallika.multiplealarms.R;
-import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.fragments.SpecialDaysReminderFragment;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by RitenVithlani on 4/25/17.
@@ -32,7 +28,7 @@ public class RingtonePlayingService extends Service {
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
-    private Timer timer;
+    //private Timer timer;
 
     @Nullable
     @Override
@@ -62,8 +58,8 @@ public class RingtonePlayingService extends Service {
                 //createNotification();
             }
 
-            timer = new Timer();
-            stopPlayerAfter(MultipleAlarmConstants.RINGTONE_DURATION_IN_MILLIS);
+            /*timer = new Timer();
+            stopPlayerAfter(MultipleAlarmConstants.RINGTONE_DURATION_IN_MILLIS);*/
 
         } else if (!isAlarmOn && null != player && player.isPlaying()) {
             player.stop();
@@ -75,7 +71,7 @@ public class RingtonePlayingService extends Service {
         return START_STICKY;
     }
 
-    private void stopPlayerAfter(int timeout) {
+    /*private void stopPlayerAfter(int timeout) {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -87,7 +83,7 @@ public class RingtonePlayingService extends Service {
                 }
             }
         }, timeout);
-        /*final Handler handler = new Handler();
+        *//*final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -98,8 +94,8 @@ public class RingtonePlayingService extends Service {
                     player = null;
                 }
             }
-        }, timeout);*/
-    }
+        }, timeout);*//*
+    }*/
 
     @Override
     public void onDestroy() {
