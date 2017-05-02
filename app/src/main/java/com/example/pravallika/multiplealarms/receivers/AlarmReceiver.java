@@ -35,6 +35,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             activeAlarmIntent.putExtra("requestCode", requestCode);
             activeAlarmIntent.putExtra("featureId", featureId);
             activeAlarmIntent.putExtra("alarmLabel", alarmLabel);
+            activeAlarmIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(activeAlarmIntent);
         }
 

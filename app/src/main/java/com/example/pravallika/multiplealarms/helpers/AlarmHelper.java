@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
@@ -54,7 +55,11 @@ public class AlarmHelper {
         Date d1 = c1.getTime();
         Log.i("Label: " + label + "Trigger time ", d1.toString());
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
+        } else {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, triggerTimeInMillis, pendingIntent);
+        }
     }
 
     public static int getRequestCode(Long id) {
