@@ -234,8 +234,7 @@ public class Utility {
         int daysInWeekCount = 1;
         do {
             int fromDateDayOfWeek = fromDate.get(Calendar.DAY_OF_WEEK);
-            // isValid is true when user does not select any days of week. If no days of week is selected then create alarm for everyday within the date range
-            // If user has selected the days of week then alarm should be triggered for that particular day in the given date range
+
             selectedDays += MultipleAlarmConstants.DAYS_OF_WEEK[fromDateDayOfWeek - 1] + MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR;
 
             // Increment the day

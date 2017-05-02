@@ -51,11 +51,13 @@ public class ActiveAlarmActivity extends AppCompatActivity {
             public void onClick(View v) {
                 int requestCode = getIntent().getIntExtra("requestCode", 0);
                 String alarmLabel = getIntent().getStringExtra("alarmLabel");
+                int featureId = getIntent().getIntExtra("featureId", 0);
                 AlarmHelper.cancelAlarm(getBaseContext(), requestCode);
 
                 Intent intent = new Intent(ActiveAlarmActivity.this, AlarmReceiver.class);
                 intent.putExtra("isAlarmOn", true);
                 intent.putExtra("alarmLabel", alarmLabel);
+                intent.putExtra("featureId", featureId);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(ActiveAlarmActivity.this, 0,
                         intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -69,11 +71,6 @@ public class ActiveAlarmActivity extends AppCompatActivity {
                     alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + MultipleAlarmConstants.SNOOZE_TIME_IN_MILLIS, pendingIntent);
                 }
 
-               /* // Stop ringtone
-                Intent serviceIntent = new Intent(ActiveAlarmActivity.this, RingtonePlayingService.class);
-                serviceIntent.putExtra("isAlarmOn", false);
-                ActiveAlarmActivity.this.startService(serviceIntent);
-*/
                 redirectToConcernedActivity();
             }
         });
@@ -96,5 +93,9 @@ public class ActiveAlarmActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

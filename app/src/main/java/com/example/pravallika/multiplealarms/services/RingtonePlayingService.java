@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -16,6 +15,9 @@ import android.widget.RemoteViews;
 import com.example.pravallika.multiplealarms.R;
 import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.fragments.SpecialDaysReminderFragment;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by RitenVithlani on 4/25/17.
@@ -30,6 +32,7 @@ public class RingtonePlayingService extends Service {
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
+    private Timer timer;
 
     @Nullable
     @Override
@@ -59,6 +62,7 @@ public class RingtonePlayingService extends Service {
                 //createNotification();
             }
 
+            timer = new Timer();
             stopPlayerAfter(MultipleAlarmConstants.RINGTONE_DURATION_IN_MILLIS);
 
         } else if (!isAlarmOn && null != player && player.isPlaying()) {
@@ -68,12 +72,11 @@ public class RingtonePlayingService extends Service {
             player = null;
             isAlarmOn = false;
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void stopPlayerAfter(int timeout) {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 if (null != player && player.isPlaying()) {
@@ -84,8 +87,30 @@ public class RingtonePlayingService extends Service {
                 }
             }
         }, timeout);
+        /*final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (null != player && player.isPlaying()) {
+                    player.stop();
+                    player.reset();
+                    player.release();
+                    player = null;
+                }
+            }
+        }, timeout);*/
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (null != player) {
+            player.stop();
+            player.reset();
+            player.release();
+            player = null;
+        }
+    }
 
     private void createNotification() {
         notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
