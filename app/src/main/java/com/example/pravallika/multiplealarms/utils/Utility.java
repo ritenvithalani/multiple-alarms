@@ -226,4 +226,25 @@ public class Utility {
         int min = Integer.parseInt(time[1]);
         return hours * 60 + min;
     }
+
+    public static String selectDaysWithinDateRange(String selectedFromDate, String selectedToDate) {
+        String selectedDays = "";
+        Calendar fromDate = Utility.convertToCalendarDate(selectedFromDate);
+        Calendar toDate = Utility.convertToCalendarDate(selectedToDate);
+        int daysInWeekCount = 1;
+        do {
+            int fromDateDayOfWeek = fromDate.get(Calendar.DAY_OF_WEEK);
+            // isValid is true when user does not select any days of week. If no days of week is selected then create alarm for everyday within the date range
+            // If user has selected the days of week then alarm should be triggered for that particular day in the given date range
+            selectedDays += MultipleAlarmConstants.DAYS_OF_WEEK[fromDateDayOfWeek - 1] + MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR;
+
+            // Increment the day
+            fromDate.add(Calendar.DAY_OF_YEAR, 1);
+            daysInWeekCount++;
+        } while (fromDate.getTimeInMillis() <= toDate.getTimeInMillis() && daysInWeekCount <= 7);
+
+        selectedDays = selectedDays.substring(0, selectedDays.length() - 2);
+
+        return selectedDays;
+    }
 }

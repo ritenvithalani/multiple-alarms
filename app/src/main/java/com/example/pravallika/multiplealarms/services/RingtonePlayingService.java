@@ -14,6 +14,7 @@ import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.example.pravallika.multiplealarms.R;
+import com.example.pravallika.multiplealarms.constants.MultipleAlarmConstants;
 import com.example.pravallika.multiplealarms.fragments.SpecialDaysReminderFragment;
 
 /**
@@ -29,7 +30,6 @@ public class RingtonePlayingService extends Service {
     private NotificationManager notificationManager;
     private int notificationId;
     private RemoteViews remoteViews;
-    private int DELAY_IN_MILLIS = 120 * 1000;
 
     @Nullable
     @Override
@@ -59,7 +59,7 @@ public class RingtonePlayingService extends Service {
                 //createNotification();
             }
 
-            stopPlayerAfter(DELAY_IN_MILLIS);
+            stopPlayerAfter(MultipleAlarmConstants.RINGTONE_DURATION_IN_MILLIS);
 
         } else if (!isAlarmOn && null != player && player.isPlaying()) {
             player.stop();

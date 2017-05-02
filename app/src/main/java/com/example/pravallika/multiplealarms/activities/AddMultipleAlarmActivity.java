@@ -221,7 +221,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
             selectedToDate = tvToDate.getText().toString();
         }
         String repeat = etRepeat.getText().toString();
-        String selectedDays = extractActiveDays();
+        String selectedDays = extractActiveDays(selectedFromDate, selectedToDate);
 
         MultipleAlarm multipleAlarm = new MultipleAlarm();
         multipleAlarm.setId(id);
@@ -250,7 +250,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
         return isInvalid;
     }
 
-    private String extractActiveDays() {
+    private String extractActiveDays(String selectedFromDate, String selectedToDate) {
         String selectedDays = "";
         boolean isDaySelected = false;
         LinearLayout llMultipleAlarmDays = (LinearLayout) findViewById(R.id.ll_multiple_alarm_days);
@@ -267,7 +267,7 @@ public class AddMultipleAlarmActivity extends AppCompatActivity {
         }
 
         if (!isDaySelected) {
-            selectedDays = TextUtils.join(MultipleAlarmConstants.DAY_OF_WEEK_SEPERATOR, MultipleAlarmConstants.DAYS_OF_WEEK);
+            selectedDays = Utility.selectDaysWithinDateRange(selectedFromDate, selectedToDate);
         } else {
             selectedDays = selectedDays.substring(0, selectedDays.length() - 2);
         }
