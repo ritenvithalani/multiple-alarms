@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pravallika.multiplealarms">
+    package="com.team8.android.multiplealarms">
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name="com.team8.android.multiplealarms.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,56 +18,57 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ReminderActivity"
+            android:name="com.team8.android.multiplealarms.activities.ReminderActivity"
             android:label="@string/eventsReminder"
-            android:parentActivityName=".activities.MainActivity"
+            android:parentActivityName="com.team8.android.multiplealarms.activities.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+                android:value="com.team8.android.multiplealarms.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.AddSpecialDaysReminderActivity"
+            android:name="com.team8.android.multiplealarms.activities.AddSpecialDaysReminderActivity"
             android:label="@string/label_add_spl_reminder" />
         <activity
-            android:name=".activities.AddEventsReminderActivity"
+            android:name="com.team8.android.multiplealarms.activities.AddEventsReminderActivity"
             android:label="@string/label_add_events_reminder" />
         <activity
-            android:name=".activities.AlarmActivity"
+            android:name="com.team8.android.multiplealarms.activities.AlarmActivity"
             android:label="@string/label_alarm_list"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.team8.android.multiplealarms.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+                android:value="com.team8.android.multiplealarms.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.AddAlarmActivity"
+            android:name="com.team8.android.multiplealarms.activities.AddAlarmActivity"
             android:label="@string/label_set_alarm" />
         <activity
-            android:name=".activities.MultipleAlarmActivity"
+            android:name="com.team8.android.multiplealarms.activities.MultipleAlarmActivity"
             android:label="@string/label_multiple_alarm_list"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.team8.android.multiplealarms.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.pravallika.multiplealarms.activities.MainActivity" />
+                android:value="com.team8.android.multiplealarms.activities.MainActivity" />
         </activity>
         <activity
-            android:name=".activities.AddMultipleAlarmActivity"
+            android:name="com.team8.android.multiplealarms.activities.AddMultipleAlarmActivity"
             android:label="@string/label_set_multiple_alarm" />
         <activity
-            android:name=".activities.ActiveAlarmActivity"
+            android:name="com.team8.android.multiplealarms.activities.ActiveAlarmActivity"
             android:label="@string/app_name"
             android:noHistory="true" />
-        <receiver android:name=".receivers.AlarmReceiver" />
-        <receiver android:name=".receivers.NotificationReceiver" />
-        <receiver android:name=".receivers.SplReminderNotificationReceiver">
+
+        <receiver android:name="com.team8.android.multiplealarms.receivers.AlarmReceiver" />
+        <receiver android:name="com.team8.android.multiplealarms.receivers.NotificationReceiver" />
+        <receiver android:name="com.team8.android.multiplealarms.receivers.SplReminderNotificationReceiver">
             <intent-filter>
                 <action android:name="spl_rem_notif_off_click" />
             </intent-filter>
         </receiver>
 
         <service
-            android:name=".services.RingtonePlayingService"
+            android:name="com.team8.android.multiplealarms.services.RingtonePlayingService"
             android:enabled="true" />
 
     </application>

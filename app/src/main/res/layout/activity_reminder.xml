@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.pravallika.multiplealarms.activities.ReminderActivity">
+    tools:context="com.team8.android.multiplealarms.activities.ReminderActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"

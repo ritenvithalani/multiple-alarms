@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.pravallika.multiplealarms.activities.AlarmActivity">
+    tools:context="com.team8.android.multiplealarms.activities.AlarmActivity">
 
     <TextView
         android:id="@+id/tv_alarm_id"

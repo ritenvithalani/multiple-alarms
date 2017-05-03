@@ -4,7 +4,7 @@
     android:id="@+id/activity_alarm"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.pravallika.multiplealarms.activities.AlarmActivity">
+    tools:context="com.team8.android.multiplealarms.activities.AlarmActivity">
 
     <TextView
         android:id="@+id/tv_empty_alarm_msg"

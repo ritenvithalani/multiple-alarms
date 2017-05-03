@@ -7,7 +7,7 @@
     android:background="@drawable/backgrounds"
     android:descendantFocusability="blocksDescendants"
     android:padding="@dimen/medium"
-    tools:context="com.example.pravallika.multiplealarms.activities.MainActivity">
+    tools:context="com.team8.android.multiplealarms.activities.MainActivity">
 
     <TextView
         android:id="@+id/tv_list_events_rem_id"
